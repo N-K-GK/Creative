@@ -61,4 +61,7 @@ public:
     void ResetBottanNumber();
 
     RoomData GetRoomData() const;
+
+    Priority GetPriority(int index) const;
+    Style GetStyle(int index) const;
 };

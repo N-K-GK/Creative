@@ -1,9 +1,11 @@
 #pragma once
 #include "raylib.h"
 #include <array>
+#include <vector>
 #include "Room.h"
 #include "Floor_plan.h"
 #include "Furniture.h"
+#include "Room_quest.h"
 
 class Room_layout{
 
@@ -131,9 +133,27 @@ private:
     Colors settingColor = Colors::Count;
     Materials settingMaterial = Materials::Count;
 
-    
+    struct PlacedFurniture
+    {
+        FurnitureType type;
+        Vector2 position;
+        Colors color;
+        Materials material;
+    };
 
-    
+    // 依頼ごとの配置家具
+    std::vector<std::vector<PlacedFurniture>> placedFurniture;
+
+    // 依頼ごとのGold
+    std::vector<int> questGold;
+
+    Room_quest* roomQuest;
+
+    Priority currentPriority;
+    Style currentStyle;
+
+    Priority priority;
+    Style style;
 
 
 public:
@@ -166,16 +186,23 @@ public:
 
     void Draw(Font font);
 
-    void SetQuest(RoomData data, int number);
+    int GetFurnitureCost(const PlacedFurniture &furniture);
+
+    int CalculateFurnitureCost();
+
+    int GetMaxGold();
+
+    void SetQuest(RoomData data, int number, Priority priority, Style style);
 
     int Getbottan_number() const;
 
     void ResetBottanNumber();
 
     void ResetSetting();
+
+    void SetRequestData(Priority priority, Style style);
 };
 
-inline bool IsColorUnlocked(UnlockLevel currentLevel, UnlockLevel unlockLevel)
-{
+inline bool IsColorUnlocked(UnlockLevel currentLevel, UnlockLevel unlockLevel){
     return static_cast<int>(currentLevel) >= static_cast<int>(unlockLevel);
 }

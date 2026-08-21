@@ -133,7 +133,17 @@ void Room_quest::ResetBottanNumber(){
     bottan_number = 0;
 }
 
-RoomData Room_quest::GetRoomData() const
-{
+RoomData Room_quest::GetRoomData() const{
+
     return requests[quest_number].room;
+}
+
+Priority Room_quest::GetPriority(int index) const{
+
+    return requests[index].priority;
+}
+
+Style Room_quest::GetStyle(int index) const{
+    
+    return requests[index].style;
 }

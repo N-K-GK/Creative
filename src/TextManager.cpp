@@ -19,6 +19,7 @@ const char* TextManager::GetAllTexts(){
         "6"
         "7"
         "8"
+        "9"
         "モード"
         "選択"
         "★"

@@ -54,7 +54,19 @@ Room_layout::Room_layout(){
 
     settingColorBtn = {200,530,80,60};
     settingMaterialBtn = {200,600,80,60};
-    
+
+    placedFurniture.resize(8);
+    questGold.resize(8, 0);
+
+    for(int i = 0; i < (int)FurnitureType::Count; i++){
+        if(FurnitureList[i].texturePath != nullptr){
+            FurnitureList[i].defaultTexture = LoadTexture(FurnitureList[i].texturePath);
+        }
+
+        if(FurnitureList[i].colorfulTexturePath != nullptr){
+            FurnitureList[i].colorfulTexture = LoadTexture(FurnitureList[i].colorfulTexturePath);
+        }
+    }
 }
 
 void Room_layout::CreateFloorPlan(){
@@ -601,7 +613,6 @@ void Room_layout::Update(Font font){
         if(CheckCollisionPointRec(GetMousePosition(), settingDecisionBtn) &&IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
             // 色と素材が選択されている場合のみ確定
             if(selectedColor != Colors::Count && selectedMaterial != Materials::Count){
-                settingFurniture = selectedFurniture;
                 settingColor = selectedColor;
                 settingMaterial = selectedMaterial;
 
@@ -747,6 +758,88 @@ void Room_layout::Update(Font font){
             }
         }
     }
+
+    //========================
+    // 家具配置判定
+    //========================
+    float x = floorPlan.x;
+    float y = floorPlan.y;
+
+    float width = floorPlan.width;
+    float height = floorPlan.height;
+
+    Rectangle roomArea = {300, 350, 600, 400};
+
+    // L字用
+    Rectangle roomAreaL1 = {0, 0, 0, 0};
+    Rectangle roomAreaL2 = {0, 0, 0, 0};
+
+    switch(room.roomType){
+
+    case RoomType::Square:
+
+        roomArea = {x, y, width, width};
+
+        break;
+
+    case RoomType::Vertical:
+    case RoomType::Horizontal:
+
+        roomArea = {x, y, width, height};
+
+        break;
+
+    case RoomType::LShape:
+
+        // 上側の長方形
+        roomAreaL1 = {x,y,width,height * 0.5f};
+
+        // 左下側の長方形
+        roomAreaL2 = {x,y + height * 0.5f,width * 0.6f,height * 0.5f};
+
+        break;
+    }
+
+    //========================
+    // 家具配置
+    //========================
+    if(!furnitureSettingVisible && !furnitureListVisible && selectedFurniture != FurnitureType::Count){
+
+        Vector2 mousePos = GetMousePosition();
+
+        bool canPlace = false;
+
+        if(room.roomType == RoomType::LShape){
+            // 上側 または 左下側なら配置可能
+            canPlace = CheckCollisionPointRec(mousePos, roomAreaL1) || CheckCollisionPointRec(mousePos, roomAreaL2);
+
+        }else{
+            // 通常の部屋
+            canPlace = CheckCollisionPointRec(mousePos, roomArea);
+        }
+
+        if(canPlace && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+            FurnitureData &data = FurnitureList[(int)selectedFurniture];
+
+            PlacedFurniture furniture;
+
+            furniture.type = selectedFurniture;
+            furniture.position = mousePos;
+
+            // 現在設定している家具の色
+            furniture.color = selectedColor;
+
+            // 現在設定している家具の素材
+            furniture.material = selectedMaterial;
+
+            placedFurniture[questNumber - 1].push_back(furniture);
+
+            // 配置後は選択解除
+            selectedFurniture = FurnitureType::Count;
+            selectedColor = Colors::Count;
+            selectedMaterial = Materials::Count;
+        }
+    }
 }
 
 void Room_layout::Draw(Font font){
@@ -791,7 +884,16 @@ void Room_layout::Draw(Font font){
         DrawTextEx(font,TextFormat("窓②：%s", GetWindowPositionText(room.windows[1])),{30, 250},35,2,BLACK);
     }
 
-    DrawTextEx(font,TextFormat("%dG/24000G", gold),{30, 300},35,2,ORANGE);
+    int gold = CalculateFurnitureCost();
+    int maxGold = GetMaxGold();
+
+    Color goldColor = ORANGE;
+    if(gold > maxGold){
+        goldColor = RED;
+    }else{
+        goldColor = ORANGE;
+    }
+    DrawTextEx(font,TextFormat("%dG/%dG", gold, maxGold),{30, 300},35,2,goldColor);
 
     DrawTextEx(font, "選択家具", {30, 350}, 35, 2, BLACK);
 
@@ -821,6 +923,139 @@ void Room_layout::Draw(Font font){
     DrawRoom();
     DrawDoor();
     DrawWindow();
+
+    //========================
+    // 配置済み家具描画
+    //========================
+    if(questNumber >= 1 && questNumber <= (int)placedFurniture.size()){
+        for(const PlacedFurniture &furniture : placedFurniture[questNumber - 1]){
+            FurnitureData &data = FurnitureList[(int)furniture.type];
+
+            //==================================================
+            // 家具画像がある場合
+            //==================================================
+            if(data.defaultTexture.id != 0){
+
+                float imageScaleX = 2.0f;  // 横幅
+                float imageScaleY = 1.2f;  // 縦幅
+                float drawWidth = data.size.x * imageScaleX;
+                float drawHeight = data.size.y * imageScaleY;
+
+                Rectangle dest = {furniture.position.x - drawWidth / 2.0f, furniture.position.y - drawHeight / 2.0f, drawWidth, drawHeight};
+
+                //==================================================
+                // レインボーの場合
+                //==================================================
+                if(furniture.color == Colors::Colorful){
+
+                    // カラフル画像を表示
+                    DrawTexturePro(
+                        data.colorfulTexture,
+                        {0,0,(float)data.colorfulTexture.width,(float)data.colorfulTexture.height},
+                        dest,
+                        {0, 0},
+                        0,
+                        WHITE
+                    );
+
+                }
+                //==================================================
+                // 通常の色の場合
+                //==================================================
+                else{
+
+                    Color furnitureColor = GetRaylibColor(furniture.color);
+
+                    DrawTexturePro(
+                        data.defaultTexture,
+                        {0,0,(float)data.defaultTexture.width,(float)data.defaultTexture.height},
+                        dest,
+                        {0, 0},
+                        0,
+                        furnitureColor
+                    );
+                }
+            }
+            //==================================================
+            // 家具画像がない場合 → 四角
+            //==================================================
+            else{
+                Rectangle furnitureRect = {furniture.position.x - data.size.x / 2.0f,furniture.position.y - data.size.y / 2.0f,data.size.x,data.size.y};
+
+                // レインボー
+                if(furniture.color == Colors::Colorful){
+                    float width = furnitureRect.width / 6.0f;
+
+                    Color rainbow[] =
+                    {
+                        RED,
+                        ORANGE,
+                        YELLOW,
+                        GREEN,
+                        BLUE,
+                        PURPLE
+                    };
+
+                    for(int i = 0; i < 6; i++){
+                        DrawRectangle(furnitureRect.x + width * i,furnitureRect.y,width,furnitureRect.height,rainbow[i]);
+                    }
+                }else{ // 通常色
+                    Color furnitureColor = GetRaylibColor(furniture.color);
+
+                    DrawRectangleRec(furnitureRect,furnitureColor);
+
+                    // 白なら黒枠
+                    if(furniture.color == Colors::White){
+                        DrawRectangleLinesEx(furnitureRect,2.0f,BLACK);
+                    }
+                }
+            }
+        }
+    }
+
+    //========================
+    // 配置済み家具の削除
+    // Dキー
+    //========================
+    if(questNumber >= 1 && questNumber <= (int)placedFurniture.size()){
+        auto &currentFurniture = placedFurniture[questNumber - 1];
+
+        for(int i = (int)currentFurniture.size() - 1; i >= 0; i--){
+            PlacedFurniture &furniture = currentFurniture[i];
+
+            FurnitureData &data = FurnitureList[(int)furniture.type];
+
+            Rectangle furnitureRect;
+
+            //==================================================
+            // 家具画像がある場合
+            //==================================================
+            if(data.defaultTexture.id != 0){
+                float imageScaleX = 2.0f;
+                float imageScaleY = 1.2f;
+
+                float drawWidth = data.size.x * imageScaleX;
+                float drawHeight = data.size.y * imageScaleY;
+
+                furnitureRect = {furniture.position.x - drawWidth / 2.0f,furniture.position.y - drawHeight / 2.0f,drawWidth,drawHeight};
+            }
+            //==================================================
+            // 家具画像がない場合
+            //==================================================
+            else{
+                furnitureRect = {furniture.position.x - data.size.x / 2.0f,furniture.position.y - data.size.y / 2.0f,data.size.x,data.size.y};
+            }
+
+            //==================================================
+            // マウスが家具の上にあり、Dキーが押された
+            //==================================================
+            if(CheckCollisionPointRec(GetMousePosition(), furnitureRect) && IsKeyPressed(KEY_D)){
+                currentFurniture.erase(currentFurniture.begin() + i);
+
+                break;
+            }
+        }
+    }
 
     //========================
     // 家具リスト描画
@@ -887,6 +1122,59 @@ void Room_layout::Draw(Font font){
         DrawRectangleRec(settingMaterialBtn, (Color){255, 255, 200, 255});
         DrawTextEx(font, "素材選択", {200, 600}, 25, 2, BLACK);
 
+        //========================
+        // 家具画像
+        //========================
+        Texture2D texture = data.defaultTexture;
+
+        // カラフルが選択されていて、カラフル画像が存在する場合
+        if(selectedColor == Colors::Colorful && data.colorfulTexturePath != nullptr){
+            texture = data.colorfulTexture;
+        }
+
+        float maxWidth = 500.0f;
+        float maxHeight = 300.0f;
+
+        // 元画像のサイズ
+        float imageWidth = (float)texture.width;
+        float imageHeight = (float)texture.height;
+
+        // 縦横比を維持したまま縮小率を計算
+        float scaleX = maxWidth / imageWidth;
+        float scaleY = maxHeight / imageHeight;
+
+        float scale = std::min(scaleX, scaleY);
+
+        // 実際に表示するサイズ
+        float drawWidth = imageWidth * scale;
+        float drawHeight = imageHeight * scale;
+
+        // 枠の中央に配置
+        float drawX = furnitureSetting.x + (furnitureSetting.width - drawWidth) / 2.0f;
+        float drawY = 150.0f;
+
+        // 通常の色
+        Color furnitureColor = WHITE;
+
+        if(selectedColor != Colors::Count && selectedColor != Colors::Colorful){
+            furnitureColor = GetRaylibColor(selectedColor);
+        }
+
+        // 描画
+        DrawTexturePro(
+            texture,
+
+            // 元画像全体
+            {0, 0, imageWidth, imageHeight},
+
+            // 表示先
+            {drawX, drawY, drawWidth, drawHeight},
+
+            {0, 0},
+            0,
+            furnitureColor
+        );
+
         // 色選択画面
         if(colorSelectVisible){
             DrawColorSelect(font);
@@ -899,14 +1187,55 @@ void Room_layout::Draw(Font font){
     }
 }
 
+int Room_layout::GetFurnitureCost(const PlacedFurniture &furniture){
+    // 家具の基本価格
+    int cost = FurnitureList[(int)furniture.type].baseCost;
+
+    // 素材価格を追加
+    if(furniture.material != Materials::Count){
+        cost += MaterialCost[(int)furniture.material];
+    }
+
+    return cost;
+}
+
+int Room_layout::CalculateFurnitureCost(){
+    int totalCost = 0;
+
+    if(questNumber >= 1 && questNumber <= (int)placedFurniture.size()){
+        for(const PlacedFurniture &furniture : placedFurniture[questNumber - 1]){
+            totalCost += GetFurnitureCost(furniture);
+        }
+    }
+
+    return totalCost;
+}
+
+int Room_layout::GetMaxGold(){
+    // 高級感を最優先
+    if(style == Style::Luxury || priority == Priority::Luxury){
+        return 15000;
+    }
+
+    // コスト重視
+    if(priority == Priority::Cost){
+        return 9000;
+    }
+
+    return 12000;
+}
+
 void Room_layout::SetUnlockLevel(UnlockLevel level){
 
     currentLevel = level;
 }
 
-void Room_layout::SetQuest(RoomData data, int number){
+void Room_layout::SetQuest(RoomData data,int number,Priority priorityData,Style styleData){
     room = data;
     questNumber = number;
+
+    priority = priorityData;
+    style = styleData;
 
     CreateFloorPlan();
 }
@@ -939,4 +1268,10 @@ void Room_layout::ResetSetting(){
 
     // 選択素材を初期化
     selectedMaterial = Materials::Count;
+}
+
+void Room_layout::SetRequestData(Priority priority, Style style)
+{
+    currentPriority = priority;
+    currentStyle = style;
 }

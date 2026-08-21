@@ -112,13 +112,10 @@ void Game::Update(){
             room.ResetQuestNumber();
             scene = ROOM;
         }else if(room_quest.Getbottan_number() == 1){
-            room_layout.SetQuest(room_quest.GetRoomData(),quest_number);
+            room_layout.SetQuest(room_quest.GetRoomData(),quest_number,room_quest.GetPriority(quest_number),room_quest.GetStyle(quest_number));
             room_quest.ResetBottanNumber();
             scene = ROOM_LAYOUT;
         }
-        
-        
-        
 
         break;
 
@@ -129,6 +126,9 @@ void Game::Update(){
         if(room_layout.Getbottan_number() == -1){
             room_layout.ResetBottanNumber();
             room_quest.ResetBottanNumber();
+            Priority priority = room_quest.GetPriority(quest_number);
+            Style style = room_quest.GetStyle(quest_number);
+            room_layout.SetRequestData(priority, style);
             scene = ROOM_QUEST;
         }
         
