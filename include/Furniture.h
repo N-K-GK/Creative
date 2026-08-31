@@ -215,9 +215,20 @@ struct FurnitureData
     // 画像ファイルのパス
     const char* texturePath;
     const char* colorfulTexturePath;
+    const char* materialTexturePath[(int)Materials::Count];
+    const char* materialcolorfulTexturePath[(int)Materials::Count];
 
+    // 基本画像
     Texture2D defaultTexture;
+
+    // カラフル画像
     Texture2D colorfulTexture;
+
+    // 素材別画像
+    Texture2D materialTexture[(int)Materials::Count];
+
+    // カラフル素材別画像
+    Texture2D materialcolorfulTexture[(int)Materials::Count];
 
     // デフォルト表示順
     int defaultOrder;
@@ -264,95 +275,1407 @@ inline FurnitureData FurnitureList[] =
 //========================
 // 初期家具
 //========================
-{FurnitureType::Chair, "イス", 20, UnlockLevel::Start, FurnitureCategory::Furniture, {80,80}, "assets/images/家具/イス.png", "assets/images/家具/イス_レインボー.png", {}, {}, 1},
-{FurnitureType::Table, "テーブル", 50, UnlockLevel::Start, FurnitureCategory::Furniture,  {150,80}, nullptr, nullptr, {}, {}, 9},
-{FurnitureType::Sofa, "ソファー", 100, UnlockLevel::Start, FurnitureCategory::Furniture,  {200,100}, nullptr, nullptr, {}, {}, 16},
-{FurnitureType::Bed, "ベッド", 120, UnlockLevel::Start, FurnitureCategory::Furniture,  {200,150}, nullptr, nullptr, {}, {}, 18},
-{FurnitureType::Bookshelf, "本棚", 60, UnlockLevel::Start, FurnitureCategory::Storage,  {100,180}, nullptr, nullptr, {}, {}, 24},
-{FurnitureType::Desk, "机", 70, UnlockLevel::Start, FurnitureCategory::Furniture,  {140,80}, nullptr, nullptr, {}, {}, 8},
-{FurnitureType::Television, "テレビ", 200, UnlockLevel::Start, FurnitureCategory::Electronics,  {120,80}, nullptr, nullptr, {}, {}, 36},
-{FurnitureType::Cabinet, "収納棚", 150, UnlockLevel::Start, FurnitureCategory::Storage,  {120,180}, nullptr, nullptr, {}, {}, 23},
-{FurnitureType::CeilingLight, "シーリングライト", 80, UnlockLevel::Start, FurnitureCategory::Lighting,  {100,100}, nullptr, nullptr, {}, {}, 50},
+{FurnitureType::Chair, "イス", 20, UnlockLevel::Start, FurnitureCategory::Furniture, {130,130}, "assets/images/家具/イス.png", "assets/images/家具/イス_レインボー.png", 
+    {
+        "assets/images/家具/イス.png",       // Wood
+        "assets/images/家具/イス_石目調.png",     // Stone
+        "assets/images/家具/イス_ガラス.png",     // Glass
+        "assets/images/家具/イス_金属.png",       // Metal
+        "assets/images/家具/イス_布.png",         // Cloth
+        "assets/images/家具/イス_レザー.png",     // Leather
+        "assets/images/家具/イス_ラタン.png",     // Rattan
+        "assets/images/家具/イス_タイル.png"      // Tile
+    },
+    {
+        "assets/images/家具/イス_レインボー.png",         // Wood
+        "assets/images/家具/イス_石目調_レインボー.png",  // Stone
+        "assets/images/家具/イス_ガラス_レインボー.png",  // Glass
+        "assets/images/家具/イス_金属_レインボー.png",    // Metal
+        "assets/images/家具/イス_布_レインボー.png",      // Cloth
+        "assets/images/家具/イス_レザー_レインボー.png",  // Leather
+        "assets/images/家具/イス_ラタン_レインボー.png",  // Rattan
+        "assets/images/家具/イス_タイル_レインボー.png"   // Tile
+    }, {},{}, {}, {}, 1},
+{FurnitureType::Table, "テーブル", 50, UnlockLevel::Start, FurnitureCategory::Furniture,  {150,130}, "assets/images/家具/テーブル.png", "assets/images/家具/テーブル_レインボー.png",
+    {
+        "assets/images/家具/テーブル.png",       // Wood
+        "assets/images/家具/テーブル_石目調.png",     // Stone
+        "assets/images/家具/テーブル_ガラス.png",     // Glass
+        "assets/images/家具/テーブル_金属.png",       // Metal
+        "assets/images/家具/テーブル_布.png",         // Cloth
+        "assets/images/家具/テーブル_レザー.png",     // Leather
+        "assets/images/家具/テーブル_ラタン.png",     // Rattan
+        "assets/images/家具/テーブル_タイル.png"      // Tile
+    }, {
+        "assets/images/家具/テーブル_レインボー.png",         // Wood
+        "assets/images/家具/テーブル_石目調_レインボー.png",  // Stone
+        "assets/images/家具/テーブル_ガラス_レインボー.png",  // Glass
+        "assets/images/家具/テーブル_金属_レインボー.png",    // Metal
+        "assets/images/家具/テーブル_布_レインボー.png",      // Cloth
+        "assets/images/家具/テーブル_レザー_レインボー.png",  // Leather
+        "assets/images/家具/テーブル_ラタン_レインボー.png",  // Rattan
+        "assets/images/家具/テーブル_タイル_レインボー.png"   // Tile
+    }, {},{}, {}, {},9},
+{FurnitureType::Sofa, "ソファー", 100, UnlockLevel::Start, FurnitureCategory::Furniture,  {200,180}, "assets/images/家具/ソファー.png", "assets/images/家具/ソファー_レインボー.png",
+    {
+        "assets/images/家具/ソファー_木目調.png",   // Wood
+        "assets/images/家具/ソファー_石目調.png",   // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        "assets/images/家具/ソファー.png",         // Cloth
+        "assets/images/家具/ソファー_レザー.png",   // Leather
+        "assets/images/家具/ソファー_ラタン.png",   // Rattan
+        nullptr                                   // Tile
+    }, {
+        "assets/images/家具/ソファー_木目調_レインボー.png",   // Wood
+        "assets/images/家具/ソファー_石目調_レインボー.png",   // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        "assets/images/家具/ソファー_レインボー.png",         // Cloth
+        "assets/images/家具/ソファー_レザー_レインボー.png",   // Leather
+        "assets/images/家具/ソファー_ラタン_レインボー.png",   // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {},16},
+{FurnitureType::Bed, "ベッド", 120, UnlockLevel::Start, FurnitureCategory::Furniture,  {200,150}, "assets/images/家具/ベッド.png", "assets/images/家具/ベッド_レインボー.png", 
+    {
+        "assets/images/家具/ベッド_木目調.png",       // Wood
+        "assets/images/家具/ベッド_石目調.png",     // Stone
+        nullptr,     // Glass
+        "assets/images/家具/ベッド_金属.png",       // Metal
+        "assets/images/家具/ベッド.png",         // Cloth
+        "assets/images/家具/ベッド_レザー.png",     // Leather
+        "assets/images/家具/ベッド_ラタン.png",     // Rattan
+        nullptr      // Tile
+    },{
+        "assets/images/家具/ベッド_木目調_レインボー.png",       // Wood
+        "assets/images/家具/ベッド_石目調_レインボー.png",     // Stone
+        nullptr,     // Glass
+        "assets/images/家具/ベッド_金属_レインボー.png",       // Metal
+        "assets/images/家具/ベッド_レインボー.png",         // Cloth
+        "assets/images/家具/ベッド_レザー_レインボー.png",     // Leather
+        "assets/images/家具/ベッド_ラタン_レインボー.png",     // Rattan
+        nullptr      // Tile
+    }, {},{}, {}, {}, 18},
+{FurnitureType::Bookshelf, "本棚", 60, UnlockLevel::Start, FurnitureCategory::Storage,  {150,200}, "assets/images/家具/本棚.png", "assets/images/家具/本棚_レインボー.png", 
+    {
+        "assets/images/家具/本棚.png",       // Wood
+        "assets/images/家具/本棚_石目調.png",     // Stone
+        "assets/images/家具/本棚_ガラス.png",     // Glass
+        nullptr,       // Metal
+        nullptr,         // Cloth
+        "assets/images/家具/本棚_レザー.png",     // Leather
+        "assets/images/家具/本棚_ラタン.png",     // Rattan
+        "assets/images/家具/本棚_タイル.png"      // Tile
+    },{
+        "assets/images/家具/本棚_レインボー.png",       // Wood
+        "assets/images/家具/本棚_石目調_レインボー.png",     // Stone
+        "assets/images/家具/本棚_ガラス_レインボー.png",     // Glass
+        nullptr,       // Metal
+        nullptr,         // Cloth
+        "assets/images/家具/本棚_レザー_レインボー.png",     // Leather
+        "assets/images/家具/本棚_ラタン_レインボー.png",     // Rattan
+        "assets/images/家具/本棚_タイル_レインボー.png"      // Tile
+    }, {},{}, {}, {}, 24},
+{FurnitureType::Desk, "机", 70, UnlockLevel::Start, FurnitureCategory::Furniture,  {140,80}, "assets/images/家具/机.png", "assets/images/家具/机_レインボー.png", 
+    {
+        "assets/images/家具/机.png",       // Wood
+        "assets/images/家具/机_石目調.png",     // Stone
+        "assets/images/家具/机_ガラス.png",     // Glass
+        "assets/images/家具/机_金属.png",       // Metal
+        nullptr,         // Cloth
+        "assets/images/家具/机_レザー.png",     // Leather
+        "assets/images/家具/机_ラタン.png",     // Rattan
+        nullptr      // Tile
+    },{
+        "assets/images/家具/机_レインボー.png",       // Wood
+        "assets/images/家具/机_石目調_レインボー.png",     // Stone
+        "assets/images/家具/机_ガラス_レインボー.png",     // Glass
+        "assets/images/家具/机_金属_レインボー.png",       // Metal
+        nullptr,         // Cloth
+        "assets/images/家具/机_レザー_レインボー.png",     // Leather
+        "assets/images/家具/机_ラタン_レインボー.png",     // Rattan
+        nullptr      // Tile
+    }, {},{}, {}, {}, 8},
+{FurnitureType::Television, "テレビ", 200, UnlockLevel::Start, FurnitureCategory::Electronics,  {150,130}, "assets/images/家具/テレビ.png", "assets/images/家具/テレビ_レインボー.png", 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/テレビ.png",           // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/テレビ_レインボー.png", // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 36},
+{FurnitureType::Cabinet, "収納棚", 150, UnlockLevel::Start, FurnitureCategory::Storage,  {180,180}, "assets/images/家具/収納棚.png", "assets/images/家具/収納棚_レインボー.png", 
+    {
+        "assets/images/家具/収納棚.png",       // Wood
+        "assets/images/家具/収納棚_石目調.png",     // Stone
+        "assets/images/家具/収納棚_ガラス.png",     // Glass
+        "assets/images/家具/収納棚_金属.png",       // Metal
+        "assets/images/家具/収納棚_布.png",         // Cloth
+        "assets/images/家具/収納棚_レザー.png",     // Leather
+        "assets/images/家具/収納棚_ラタン.png",     // Rattan
+        nullptr      // Tile
+    },{
+        "assets/images/家具/収納棚_レインボー.png",       // Wood
+        "assets/images/家具/収納棚_石目調_レインボー.png",     // Stone
+        "assets/images/家具/収納棚_ガラス_レインボー.png",     // Glass
+        "assets/images/家具/収納棚_金属_レインボー.png",       // Metal
+        "assets/images/家具/収納棚_布_レインボー.png",         // Cloth
+        "assets/images/家具/収納棚_レザー_レインボー.png",     // Leather
+        "assets/images/家具/収納棚_ラタン_レインボー.png",     // Rattan
+        nullptr      // Tile
+    }, {},{}, {}, {}, 23},
+{FurnitureType::CeilingLight, "シーリングライト", 80, UnlockLevel::Start, FurnitureCategory::Lighting,  {120,120}, "assets/images/家具/シーリングライト.png", "assets/images/家具/シーリングライト_レインボー.png", 
+    {
+        nullptr,       // Wood
+        nullptr,     // Stone
+        "assets/images/家具/シーリングライト.png",     // Glass
+        "assets/images/家具/シーリングライト_金属.png",       // Metal
+        nullptr,         // Cloth
+        nullptr,     // Leather
+        "assets/images/家具/シーリングライト_ラタン.png",     // Rattan
+        "assets/images/家具/シーリングライト_タイル.png"      // Tile
+    },{
+        nullptr,       // Wood
+        nullptr,     // Stone
+        "assets/images/家具/シーリングライト_レインボー.png",     // Glass
+        "assets/images/家具/シーリングライト_金属_レインボー.png",       // Metal
+        nullptr,         // Cloth
+        nullptr,     // Leather
+        "assets/images/家具/シーリングライト_ラタン_レインボー.png",     // Rattan
+        "assets/images/家具/シーリングライト_タイル_レインボー.png"      // Tile
+    }, {},{}, {}, {}, 50},
 
 //========================
 // 依頼1クリア
 //========================
-{FurnitureType::Laptop, "ノートパソコン", 250, UnlockLevel::Quest1, FurnitureCategory::Electronics,  {100,60}, nullptr, nullptr, {}, {}, 40},
-{FurnitureType::Cage, "ケージ", 100, UnlockLevel::Quest1, FurnitureCategory::Decoration,  {120,120}, nullptr, nullptr, {}, {}, 70},
-{FurnitureType::Piano, "ピアノ", 500, UnlockLevel::Quest1, FurnitureCategory::Hobby,  {220,120}, nullptr, nullptr, {}, {}, 48},
-{FurnitureType::BarCounter, "バーカウンター", 700, UnlockLevel::Quest1, FurnitureCategory::Furniture,  {250,100}, nullptr, nullptr, {}, {}, 14},
-{FurnitureType::HandheldGame, "携帯ゲーム機", 150, UnlockLevel::Quest1, FurnitureCategory::Hobby,  {80,50}, nullptr, nullptr, {}, {}, 45},
-{FurnitureType::Cushion, "クッション", 30, UnlockLevel::Quest1, FurnitureCategory::Furniture,  {60,60}, nullptr, nullptr, {}, {}, 21},
-{FurnitureType::DeskChair, "デスクチェア", 120, UnlockLevel::Quest1, FurnitureCategory::Furniture,  {80,100}, nullptr, nullptr, {}, {}, 2},
-{FurnitureType::WallClock, "壁掛け時計", 50, UnlockLevel::Quest1, FurnitureCategory::Decoration,  {50,50}, nullptr, nullptr, {}, {}, 61},
-{FurnitureType::FloorLamp, "スタンドライト", 100, UnlockLevel::Quest1, FurnitureCategory::Lighting,  {50,150}, nullptr, nullptr, {}, {}, 52},
-{FurnitureType::TVStand, "テレビ台", 120, UnlockLevel::Quest1, FurnitureCategory::Furniture,  {150,60}, nullptr, nullptr, {}, {}, 13},
-{FurnitureType::Curtain, "カーテン", 80, UnlockLevel::Quest1, FurnitureCategory::Decoration,  {200,150}, nullptr, nullptr, {}, {}, 56},
-{FurnitureType::HousePlant, "観葉植物", 70, UnlockLevel::Quest1, FurnitureCategory::Decoration,  {80,120}, nullptr, nullptr, {}, {}, 64},
+{FurnitureType::Laptop, "ノートパソコン", 250, UnlockLevel::Quest1, FurnitureCategory::Electronics,  {100,60}, "assets/images/家具/ノートパソコン.png", "assets/images/家具/ノートパソコン_レインボー.png", 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/ノートパソコン.png",    // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/ノートパソコン_レインボー.png",// Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 40},
+{FurnitureType::Cage, "ケージ", 100, UnlockLevel::Quest1, FurnitureCategory::Decoration,  {120,120}, "assets/images/家具/ケージ.png", "assets/images/家具/ケージ_レインボー.png", 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/ケージ.png",           // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/ケージ_レインボー.png", // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 70},
+{FurnitureType::Piano, "ピアノ", 500, UnlockLevel::Quest1, FurnitureCategory::Hobby,  {220,120}, "assets/images/家具/ピアノ.png", "assets/images/家具/ピアノ_レインボー.png", 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/ピアノ.png",           // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/ピアノ_レインボー.png", // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 48},
+{FurnitureType::BarCounter, "バーカウンター", 700, UnlockLevel::Quest1, FurnitureCategory::Furniture,  {250,150}, "assets/images/家具/バーカウンター.png", "assets/images/家具/バーカウンター_レインボー.png", 
+    {
+        nullptr,                                  // Wood
+        "assets/images/家具/バーカウンター_石目調.png",// Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/バーカウンター.png",   // Metal
+        nullptr,                                 // Cloth
+        nullptr,                                 // Leather
+        nullptr,                                 // Rattan
+        nullptr                                  // Tile
+    },{
+        nullptr,                                  // Wood
+        "assets/images/家具/バーカウンター_石目調_レインボー.png",// Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/バーカウンター_レインボー.png",  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 14},
+{FurnitureType::HandheldGame, "携帯ゲーム機", 150, UnlockLevel::Quest1, FurnitureCategory::Hobby,  {80,50}, "assets/images/家具/携帯ゲーム機.png", "assets/images/家具/携帯ゲーム機_レインボー.png", 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/携帯ゲーム機.png",      // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        "assets/images/家具/携帯ゲーム機_レインボー.png",// Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 45},
+{FurnitureType::Cushion, "クッション", 30, UnlockLevel::Quest1, FurnitureCategory::Furniture,  {60,60}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 21},
+{FurnitureType::DeskChair, "デスクチェア", 120, UnlockLevel::Quest1, FurnitureCategory::Furniture,  {80,100}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 2},
+{FurnitureType::WallClock, "壁掛け時計", 50, UnlockLevel::Quest1, FurnitureCategory::Decoration,  {50,50}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 61},
+{FurnitureType::FloorLamp, "スタンドライト", 100, UnlockLevel::Quest1, FurnitureCategory::Lighting,  {50,150}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 52},
+{FurnitureType::TVStand, "テレビ台", 120, UnlockLevel::Quest1, FurnitureCategory::Furniture,  {150,60}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 13},
+{FurnitureType::Curtain, "カーテン", 80, UnlockLevel::Quest1, FurnitureCategory::Decoration,  {200,150}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 56},
+{FurnitureType::HousePlant, "観葉植物", 70, UnlockLevel::Quest1, FurnitureCategory::Decoration,  {80,120}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 64},
 
 //========================
 // 依頼2クリア
 //========================
-{FurnitureType::Closet, "クローゼット", 300, UnlockLevel::Quest2, FurnitureCategory::Storage,  {180,220}, nullptr, nullptr, {}, {}, 26},
-{FurnitureType::DoubleBed, "ダブルベッド", 250, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {250,170}, nullptr, nullptr, {}, {}, 19},
-{FurnitureType::CushionFloor, "座布団", 20, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {80,80}, nullptr, nullptr, {}, {}, 22},
-{FurnitureType::DisplayShelf, "飾り棚", 150, UnlockLevel::Quest2, FurnitureCategory::Storage,  {120,180}, nullptr, nullptr, {}, {}, 27},
-{FurnitureType::DiningTable, "ダイニングテーブル", 300, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {220,120}, nullptr, nullptr, {}, {}, 10},
-{FurnitureType::DiningChair, "ダイニングチェア", 100, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {80,100}, nullptr, nullptr, {}, {}, 3},
-{FurnitureType::Wallpaper, "壁紙", 200, UnlockLevel::Quest2, FurnitureCategory::Decoration,  {300,300}, nullptr, nullptr, {}, {}, 58},
-{FurnitureType::Flooring, "床材", 250, UnlockLevel::Quest2, FurnitureCategory::Decoration,  {300,300}, nullptr, nullptr, {}, {}, 59},
-{FurnitureType::PendantLight, "ペンダントライト", 180, UnlockLevel::Quest2, FurnitureCategory::Lighting,  {100,100}, nullptr, nullptr, {}, {}, 51},
-{FurnitureType::CornerSofa, "L字ソファー", 350, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {250,200}, nullptr, nullptr, {}, {}, 17},
-{FurnitureType::KitchenCounter, "キッチンカウンター", 400, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {250,100}, nullptr, nullptr, {}, {}, 15},
-{FurnitureType::Cupboard, "食器棚", 250, UnlockLevel::Quest2, FurnitureCategory::Storage,  {150,220}, nullptr, nullptr, {}, {}, 28},
+{FurnitureType::Closet, "クローゼット", 300, UnlockLevel::Quest2, FurnitureCategory::Storage,  {180,220}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 26},
+{FurnitureType::DoubleBed, "ダブルベッド", 250, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {250,170}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 19},
+{FurnitureType::CushionFloor, "座布団", 20, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {80,80}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 22},
+{FurnitureType::DisplayShelf, "飾り棚", 150, UnlockLevel::Quest2, FurnitureCategory::Storage,  {120,180}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 27},
+{FurnitureType::DiningTable, "ダイニングテーブル", 300, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {220,120}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 10},
+{FurnitureType::DiningChair, "ダイニングチェア", 100, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {80,100}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 3},
+{FurnitureType::Wallpaper, "壁紙", 200, UnlockLevel::Quest2, FurnitureCategory::Decoration,  {300,300}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 58},
+{FurnitureType::Flooring, "床材", 250, UnlockLevel::Quest2, FurnitureCategory::Decoration,  {300,300}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 59},
+{FurnitureType::PendantLight, "ペンダントライト", 180, UnlockLevel::Quest2, FurnitureCategory::Lighting,  {100,100}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 51},
+{FurnitureType::CornerSofa, "L字ソファー", 350, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {250,200}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 17},
+{FurnitureType::KitchenCounter, "キッチンカウンター", 400, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {250,100}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 15},
+{FurnitureType::Cupboard, "食器棚", 250, UnlockLevel::Quest2, FurnitureCategory::Storage,  {150,220}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 28},
 
 //========================
 // 依頼3クリア
 //========================
-{FurnitureType::VacuumCleaner, "掃除機", 150, UnlockLevel::Quest3, FurnitureCategory::Furniture,  {80,120}, nullptr, nullptr, {}, {}, 38},
-{FurnitureType::WallShelf, "壁掛け棚", 120, UnlockLevel::Quest3, FurnitureCategory::Storage,  {150,50}, nullptr, nullptr, {}, {}, 29},
-{FurnitureType::FloorChair, "座椅子", 50, UnlockLevel::Quest3, FurnitureCategory::Furniture,  {100,80}, nullptr, nullptr, {}, {}, 6},
-{FurnitureType::SideTable, "サイドテーブル", 80, UnlockLevel::Quest3, FurnitureCategory::Furniture,  {70,70}, nullptr, nullptr, {}, {}, 12},
-{FurnitureType::Carpet, "カーペット", 100, UnlockLevel::Quest3, FurnitureCategory::Decoration,  {300,250}, nullptr, nullptr, {}, {}, 57},
-{FurnitureType::StorageCase, "引き出し収納ケース", 130, UnlockLevel::Quest3, FurnitureCategory::Storage,  {120,100}, nullptr, nullptr, {}, {}, 30},
-{FurnitureType::DesktopPC, "デスクトップパソコン", 500, UnlockLevel::Quest3, FurnitureCategory::Electronics,  {120,100}, nullptr, nullptr, {}, {}, 41},
-{FurnitureType::TableLamp, "テーブルスタンド", 120, UnlockLevel::Quest3, FurnitureCategory::Lighting,  {50,80}, nullptr, nullptr, {}, {}, 53},
-{FurnitureType::LowTable, "ローテーブル", 100, UnlockLevel::Quest3, FurnitureCategory::Furniture,  {180,80}, nullptr, nullptr, {}, {}, 11},
-{FurnitureType::Mirror, "鏡", 80, UnlockLevel::Quest3, FurnitureCategory::Decoration,  {80,150}, nullptr, nullptr, {}, {}, 60},
-{FurnitureType::ConsoleGame, "据え置きゲーム機", 300, UnlockLevel::Quest3, FurnitureCategory::Hobby,  {100,50}, nullptr, nullptr, {}, {}, 46},
-{FurnitureType::Chandelier, "シャンデリア", 600, UnlockLevel::Quest3, FurnitureCategory::Lighting,  {150,150}, nullptr, nullptr, {}, {}, 55},
+{FurnitureType::VacuumCleaner, "掃除機", 150, UnlockLevel::Quest3, FurnitureCategory::Furniture,  {80,120}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 38},
+{FurnitureType::WallShelf, "壁掛け棚", 120, UnlockLevel::Quest3, FurnitureCategory::Storage,  {150,50}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 29},
+{FurnitureType::FloorChair, "座椅子", 50, UnlockLevel::Quest3, FurnitureCategory::Furniture,  {100,80}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 6},
+{FurnitureType::SideTable, "サイドテーブル", 80, UnlockLevel::Quest3, FurnitureCategory::Furniture,  {70,70}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 12},
+{FurnitureType::Carpet, "カーペット", 100, UnlockLevel::Quest3, FurnitureCategory::Decoration,  {300,250}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 57},
+{FurnitureType::StorageCase, "引き出し収納ケース", 130, UnlockLevel::Quest3, FurnitureCategory::Storage,  {120,100}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 30},
+{FurnitureType::DesktopPC, "デスクトップパソコン", 500, UnlockLevel::Quest3, FurnitureCategory::Electronics,  {120,100}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 41},
+{FurnitureType::TableLamp, "テーブルスタンド", 120, UnlockLevel::Quest3, FurnitureCategory::Lighting,  {50,80}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 53},
+{FurnitureType::LowTable, "ローテーブル", 100, UnlockLevel::Quest3, FurnitureCategory::Furniture,  {180,80}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 11},
+{FurnitureType::Mirror, "鏡", 80, UnlockLevel::Quest3, FurnitureCategory::Decoration,  {80,150}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 60},
+{FurnitureType::ConsoleGame, "据え置きゲーム機", 300, UnlockLevel::Quest3, FurnitureCategory::Hobby,  {100,50}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 46},
+{FurnitureType::Chandelier, "シャンデリア", 600, UnlockLevel::Quest3, FurnitureCategory::Lighting,  {150,150}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 55},
 
 //========================
 // 依頼4クリア
 //========================
-{FurnitureType::LargeBookshelf, "本棚（大型）", 400, UnlockLevel::Quest4, FurnitureCategory::Storage,  {200,250}, nullptr, nullptr, {}, {}, 25},
-{FurnitureType::CounterChair, "カウンターチェア", 120, UnlockLevel::Quest4, FurnitureCategory::Furniture,  {70,120}, nullptr, nullptr, {}, {}, 4},
-{FurnitureType::Painting, "絵画", 150, UnlockLevel::Quest4, FurnitureCategory::Decoration,  {100,100}, nullptr, nullptr, {}, {}, 63},
-{FurnitureType::Candle, "キャンドル", 30, UnlockLevel::Quest4, FurnitureCategory::Decoration,  {30,50}, nullptr, nullptr, {}, {}, 66},
-{FurnitureType::TrashCan, "ゴミ箱", 20, UnlockLevel::Quest4, FurnitureCategory::Storage,  {50,70}, nullptr, nullptr, {}, {}, 34},
-{FurnitureType::DeskLamp, "デスクスタンド", 100, UnlockLevel::Quest4, FurnitureCategory::Lighting,  {50,80}, nullptr, nullptr, {}, {}, 54},
-{FurnitureType::Vase, "花瓶", 50, UnlockLevel::Quest4, FurnitureCategory::Decoration,  {40,80}, nullptr, nullptr, {}, {}, 65},
-{FurnitureType::Showcase, "ショーケース", 300, UnlockLevel::Quest4, FurnitureCategory::Storage,  {150,200}, nullptr, nullptr, {}, {}, 31},
-{FurnitureType::Guitar, "ギター", 250, UnlockLevel::Quest4, FurnitureCategory::Hobby,  {80,180}, nullptr, nullptr, {}, {}, 49},
-{FurnitureType::CatTower, "キャットタワー", 350, UnlockLevel::Quest4, FurnitureCategory::Decoration,  {100,250}, nullptr, nullptr, {}, {}, 68},
-{FurnitureType::PetToilet, "ペットトイレ", 100, UnlockLevel::Quest4, FurnitureCategory::Decoration,  {100,80}, nullptr, nullptr, {}, {}, 69},
-{FurnitureType::AirConditioner, "エアコン", 700, UnlockLevel::Quest4, FurnitureCategory::Electronics,  {150,80}, nullptr, nullptr, {}, {}, 37},
+{FurnitureType::LargeBookshelf, "本棚（大型）", 400, UnlockLevel::Quest4, FurnitureCategory::Storage,  {200,250}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 25},
+{FurnitureType::CounterChair, "カウンターチェア", 120, UnlockLevel::Quest4, FurnitureCategory::Furniture,  {70,120}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 4},
+{FurnitureType::Painting, "絵画", 150, UnlockLevel::Quest4, FurnitureCategory::Decoration,  {100,100}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 63},
+{FurnitureType::Candle, "キャンドル", 30, UnlockLevel::Quest4, FurnitureCategory::Decoration,  {30,50}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 66},
+{FurnitureType::TrashCan, "ゴミ箱", 20, UnlockLevel::Quest4, FurnitureCategory::Storage,  {50,70}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 34},
+{FurnitureType::DeskLamp, "デスクスタンド", 100, UnlockLevel::Quest4, FurnitureCategory::Lighting,  {50,80}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 54},
+{FurnitureType::Vase, "花瓶", 50, UnlockLevel::Quest4, FurnitureCategory::Decoration,  {40,80}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 65},
+{FurnitureType::Showcase, "ショーケース", 300, UnlockLevel::Quest4, FurnitureCategory::Storage,  {150,200}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 31},
+{FurnitureType::Guitar, "ギター", 250, UnlockLevel::Quest4, FurnitureCategory::Hobby,  {80,180}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 49},
+{FurnitureType::CatTower, "キャットタワー", 350, UnlockLevel::Quest4, FurnitureCategory::Decoration,  {100,250}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 68},
+{FurnitureType::PetToilet, "ペットトイレ", 100, UnlockLevel::Quest4, FurnitureCategory::Decoration,  {100,80}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 69},
+{FurnitureType::AirConditioner, "エアコン", 700, UnlockLevel::Quest4, FurnitureCategory::Electronics,  {150,80}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 37},
 
 //========================
 // 依頼5クリア
 //========================
-{FurnitureType::QueenBed, "クイーンベッド", 600, UnlockLevel::Quest5, FurnitureCategory::Furniture,  {300,180}, nullptr, nullptr, {}, {}, 20},
-{FurnitureType::GamingPC, "ゲーミングPC", 800, UnlockLevel::Quest5, FurnitureCategory::Hobby,  {150,120}, nullptr, nullptr, {}, {}, 42},
-{FurnitureType::Monitor, "モニター", 300, UnlockLevel::Quest5, FurnitureCategory::Hobby,  {120,80}, nullptr, nullptr, {}, {}, 43},
-{FurnitureType::GamingChair, "ゲーミングチェア", 250, UnlockLevel::Quest5, FurnitureCategory::Furniture,  {100,130}, nullptr, nullptr, {}, {}, 7},
-{FurnitureType::Speaker, "スピーカー", 150, UnlockLevel::Quest5, FurnitureCategory::Hobby,  {80,100}, nullptr, nullptr, {}, {}, 44},
-{FurnitureType::RecliningChair, "リクライニングチェア", 300, UnlockLevel::Quest5, FurnitureCategory::Furniture,  {150,120}, nullptr, nullptr, {}, {}, 5},
-{FurnitureType::RetroGameConsole, "レトロゲーム機", 200, UnlockLevel::Quest5, FurnitureCategory::Hobby,  {100,50}, nullptr, nullptr, {}, {}, 47},
-{FurnitureType::StuffedToy, "ぬいぐるみ", 50, UnlockLevel::Quest5, FurnitureCategory::Decoration,  {70,70}, nullptr, nullptr, {}, {}, 67},
-{FurnitureType::Clock, "置き時計", 50, UnlockLevel::Quest5, FurnitureCategory::Decoration,  {50,50}, nullptr, nullptr, {}, {}, 62},
-{FurnitureType::ElectricFan, "扇風機", 100, UnlockLevel::Quest5, FurnitureCategory::Electronics,  {80,150}, nullptr, nullptr, {}, {}, 39},
-{FurnitureType::ShoeRack, "靴箱", 100, UnlockLevel::Quest5, FurnitureCategory::Storage,  {150,150}, nullptr, nullptr, {}, {}, 32},
-{FurnitureType::HangerRack, "ハンガーラック", 80, UnlockLevel::Quest5, FurnitureCategory::Storage,  {120,200}, nullptr, nullptr, {}, {}, 33}
+{FurnitureType::QueenBed, "クイーンベッド", 600, UnlockLevel::Quest5, FurnitureCategory::Furniture,  {300,180}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 20},
+{FurnitureType::GamingPC, "ゲーミングPC", 800, UnlockLevel::Quest5, FurnitureCategory::Hobby,  {150,120}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 42},
+{FurnitureType::Monitor, "モニター", 300, UnlockLevel::Quest5, FurnitureCategory::Hobby,  {120,80}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 43},
+{FurnitureType::GamingChair, "ゲーミングチェア", 250, UnlockLevel::Quest5, FurnitureCategory::Furniture,  {100,130}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 7},
+{FurnitureType::Speaker, "スピーカー", 150, UnlockLevel::Quest5, FurnitureCategory::Hobby,  {80,100}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 44},
+{FurnitureType::RecliningChair, "リクライニングチェア", 300, UnlockLevel::Quest5, FurnitureCategory::Furniture,  {150,120}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 5},
+{FurnitureType::RetroGameConsole, "レトロゲーム機", 200, UnlockLevel::Quest5, FurnitureCategory::Hobby,  {100,50}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 47},
+{FurnitureType::StuffedToy, "ぬいぐるみ", 50, UnlockLevel::Quest5, FurnitureCategory::Decoration,  {70,70}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 67},
+{FurnitureType::Clock, "置き時計", 50, UnlockLevel::Quest5, FurnitureCategory::Decoration,  {50,50}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 62},
+{FurnitureType::ElectricFan, "扇風機", 100, UnlockLevel::Quest5, FurnitureCategory::Electronics,  {80,150}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 39},
+{FurnitureType::ShoeRack, "靴箱", 100, UnlockLevel::Quest5, FurnitureCategory::Storage,  {150,150}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 32},
+{FurnitureType::HangerRack, "ハンガーラック", 80, UnlockLevel::Quest5, FurnitureCategory::Storage,  {120,200}, nullptr, nullptr, 
+    {
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    },{
+        nullptr,                                  // Wood
+        nullptr,                                  // Stone
+        nullptr,                                  // Glass
+        nullptr,                                  // Metal
+        nullptr,                                  // Cloth
+        nullptr,                                  // Leather
+        nullptr,                                  // Rattan
+        nullptr                                   // Tile
+    }, {},{}, {}, {}, 33}
 
 };
 

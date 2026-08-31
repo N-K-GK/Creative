@@ -22,6 +22,8 @@ Room_layout::Room_layout(){
 
     furniturelist = {30, 780, 1000, 150};
 
+    setfurniture = {30, 350, 180, 250};
+
     allfurnitureBtn = {70, 820, 100, 100};
     furnitureBtn = {205, 820, 100, 100};
     storageBtn = {340, 820, 100, 100};
@@ -59,12 +61,31 @@ Room_layout::Room_layout(){
     questGold.resize(8, 0);
 
     for(int i = 0; i < (int)FurnitureType::Count; i++){
-        if(FurnitureList[i].texturePath != nullptr){
-            FurnitureList[i].defaultTexture = LoadTexture(FurnitureList[i].texturePath);
+        FurnitureData &data = FurnitureList[i];
+
+        // 基本画像
+        if(data.texturePath != nullptr){
+            data.defaultTexture = LoadTexture(data.texturePath);
         }
 
-        if(FurnitureList[i].colorfulTexturePath != nullptr){
-            FurnitureList[i].colorfulTexture = LoadTexture(FurnitureList[i].colorfulTexturePath);
+        // カラフル画像
+        if(data.colorfulTexturePath != nullptr){
+            data.colorfulTexture = LoadTexture(data.colorfulTexturePath);
+        }
+
+        //==================================================
+        // 素材別画像
+        //==================================================
+        for(int j = 0; j < (int)Materials::Count; j++){
+            // 通常の素材画像
+            if(data.materialTexturePath[j] != nullptr){
+                data.materialTexture[j] = LoadTexture(data.materialTexturePath[j]);
+            }
+
+            // 素材 + カラフル画像
+            if(data.materialcolorfulTexturePath[j] != nullptr){
+                data.materialcolorfulTexture[j] = LoadTexture(data.materialcolorfulTexturePath[j]);
+            }
         }
     }
 }
@@ -370,7 +391,7 @@ void Room_layout::DrawColorSelect(Font font){
         return;
     }
 
-    DrawRectangle(150, 100, 760, 600, (Color){255, 255, 200, 255});
+    DrawRectangle(150, 100, 760, 600, (Color){187, 255, 233, 255});
 
     DrawTextEx(font, "色選択", {480, 120}, 40, 2, BLACK);
 
@@ -445,7 +466,8 @@ Color Room_layout::GetRaylibColor(Colors color){
             return WHITE;
 
         case Colors::Black:
-            return BLACK;
+            //return BLACK;
+            return Color{45, 45, 45, 255};
 
         case Colors::Red:
             return RED;
@@ -507,16 +529,26 @@ void Room_layout::DrawMaterialSelect(Font font){
         return;
     }
 
-    DrawRectangle(150,100,760,600,(Color){255, 255, 200, 255});
+    DrawRectangle(150, 100, 760, 600,(Color){187, 255, 233, 255});
 
-    DrawTextEx(font,"素材選択",{480,120},40,2,BLACK);
+    DrawTextEx(font,"素材選択",{480, 120},40,2,BLACK);
+
+    //========================
+    // 現在選択している家具
+    //========================
+    FurnitureData &data = FurnitureList[(int)selectedFurniture];
 
     //========================
     // 表示する素材一覧を作成
     //========================
     std::vector<int> drawList;
 
-    for(int i = 0; i < sizeof(MaterialList) / sizeof(MaterialList[0]); i++){
+    for(int i = 0; i < (int)Materials::Count; i++){
+        // この家具に素材画像が存在しない場合は表示しない
+        if(data.materialTexturePath[i] == nullptr){
+            continue;
+        }
+
         drawList.push_back(i);
     }
 
@@ -529,7 +561,6 @@ void Room_layout::DrawMaterialSelect(Font font){
     // 描画
     //========================
     for(int index = 0; index < (int)drawList.size(); index++){
-
         MaterialData &materialData = MaterialList[drawList[index]];
 
         int column = index % 4;
@@ -538,14 +569,17 @@ void Room_layout::DrawMaterialSelect(Font font){
         float x = 180 + column * 180;
         float y = 180 + row * 90;
 
-        Rectangle materialBtn ={x,y,150,60};
+        Rectangle materialBtn = {x,y,150,60};
 
         // 素材ボタン色
         DrawRectangleRec(materialBtn,GetMaterialColor(materialData.type));
 
-        DrawTextEx(font,materialData.name,{x,y+65},25,2,BLACK);
+        DrawTextEx(font,materialData.name,{x, y + 65},25,2,BLACK);
 
-        if(CheckCollisionPointRec(GetMousePosition(), materialBtn) &&IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+        //========================
+        // 素材選択
+        //========================
+        if(CheckCollisionPointRec(GetMousePosition(),materialBtn) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
             selectedMaterial = materialData.type;
 
             materialSelectVisible = false;
@@ -895,6 +929,7 @@ void Room_layout::Draw(Font font){
     }
     DrawTextEx(font,TextFormat("%dG/%dG", gold, maxGold),{30, 300},35,2,goldColor);
 
+    DrawRectangleRec(setfurniture, BEIGE);
     DrawTextEx(font, "選択家具", {30, 350}, 35, 2, BLACK);
 
     DrawTextEx(font, "家具名：", {30, 400}, 35, 2, BLACK);
@@ -936,45 +971,87 @@ void Room_layout::Draw(Font font){
             //==================================================
             if(data.defaultTexture.id != 0){
 
-                float imageScaleX = 2.0f;  // 横幅
-                float imageScaleY = 1.2f;  // 縦幅
-                float drawWidth = data.size.x * imageScaleX;
-                float drawHeight = data.size.y * imageScaleY;
-
-                Rectangle dest = {furniture.position.x - drawWidth / 2.0f, furniture.position.y - drawHeight / 2.0f, drawWidth, drawHeight};
+                //==================================================
+                // 使用する画像
+                //==================================================
+                Texture2D texture = data.defaultTexture;
 
                 //==================================================
-                // レインボーの場合
+                // 素材が設定されている場合
                 //==================================================
-                if(furniture.color == Colors::Colorful){
+                if(furniture.material != Materials::Count){
+                    int materialIndex = (int)furniture.material;
 
-                    // カラフル画像を表示
-                    DrawTexturePro(
-                        data.colorfulTexture,
-                        {0,0,(float)data.colorfulTexture.width,(float)data.colorfulTexture.height},
-                        dest,
-                        {0, 0},
-                        0,
-                        WHITE
-                    );
+                    // 素材 + カラフル
+                    if(furniture.color == Colors::Colorful){
+                        if(data.materialcolorfulTexture[materialIndex].id != 0){
+                            texture = data.materialcolorfulTexture[materialIndex];
+                        }
+                    }
 
+                    // 素材 + 通常色
+                    else{
+                        if(data.materialTexture[materialIndex].id != 0){
+                            texture = data.materialTexture[materialIndex];
+                        }
+                    }
                 }
                 //==================================================
-                // 通常の色の場合
+                // 素材が設定されていない場合
                 //==================================================
                 else{
+                    // カラフル
+                    if(furniture.color == Colors::Colorful){
+                        if(data.colorfulTexture.id != 0){
+                            texture = data.colorfulTexture;
+                        }
+                    }
 
-                    Color furnitureColor = GetRaylibColor(furniture.color);
-
-                    DrawTexturePro(
-                        data.defaultTexture,
-                        {0,0,(float)data.defaultTexture.width,(float)data.defaultTexture.height},
-                        dest,
-                        {0, 0},
-                        0,
-                        furnitureColor
-                    );
+                    // 通常色
+                    else{
+                        texture = data.defaultTexture;
+                    }
                 }
+
+                //==================================================
+                // 家具画像の表示サイズ
+                // data.size の中に収める
+                //==================================================
+                float imageWidth = (float)texture.width;
+                float imageHeight = (float)texture.height;
+
+                float scaleX = data.size.x / imageWidth;
+                float scaleY = data.size.y / imageHeight;
+
+                // 小さい方を使って縦横比を維持
+                float scale = std::min(scaleX, scaleY);
+
+                float drawWidth = imageWidth * scale;
+                float drawHeight = imageHeight * scale;
+
+                //==================================================
+                // 表示位置
+                //==================================================
+                Rectangle dest = {
+                    furniture.position.x - drawWidth / 2.0f,
+                    furniture.position.y - drawHeight / 2.0f,
+                    drawWidth,
+                    drawHeight
+                };
+
+                //==================================================
+                // 使用する色
+                //==================================================
+                Color furnitureColor = WHITE;
+
+                if(furniture.color != Colors::Count && furniture.color != Colors::Colorful){
+                    furnitureColor = GetRaylibColor(furniture.color);
+                }
+
+                //==================================================
+                // 描画
+                //==================================================
+                DrawTexturePro(texture,{0,0,(float)texture.width,(float)texture.height},dest,{0, 0},0,furnitureColor);
             }
             //==================================================
             // 家具画像がない場合 → 四角
@@ -1100,7 +1177,7 @@ void Room_layout::Draw(Font font){
     }else if(furnitureSettingVisible){ //詳細設定画面
         FurnitureData &data = FurnitureList[(int)selectedFurniture];
 
-        DrawRectangleRec(furnitureSetting, GREEN);
+        DrawRectangleRec(furnitureSetting, (Color){255, 225, 186, 255});
 
         // 文字サイズを取得
         Vector2 textSize = MeasureTextEx(font, data.name, 50, 2);
@@ -1116,10 +1193,10 @@ void Room_layout::Draw(Font font){
         DrawRectangleRec(settingDecisionBtn, BLUE);
         DrawTextEx(font, "決定", {770, 100}, 25, 2, BLACK);
 
-        DrawRectangleRec(settingColorBtn, (Color){255, 255, 200, 255});
+        DrawRectangleRec(settingColorBtn, (Color){187, 255, 233, 255});
         DrawTextEx(font, "色選択", {200, 530}, 25, 2, BLACK);
 
-        DrawRectangleRec(settingMaterialBtn, (Color){255, 255, 200, 255});
+        DrawRectangleRec(settingMaterialBtn, (Color){187, 255, 233, 255});
         DrawTextEx(font, "素材選択", {200, 600}, 25, 2, BLACK);
 
         //========================
@@ -1127,11 +1204,52 @@ void Room_layout::Draw(Font font){
         //========================
         Texture2D texture = data.defaultTexture;
 
-        // カラフルが選択されていて、カラフル画像が存在する場合
-        if(selectedColor == Colors::Colorful && data.colorfulTexturePath != nullptr){
-            texture = data.colorfulTexture;
+        //==================================================
+        // 素材が選択されている場合
+        //==================================================
+        if(selectedMaterial != Materials::Count){
+            int materialIndex = (int)selectedMaterial;
+
+            //==================================================
+            // 素材 + カラフル
+            //==================================================
+            if(selectedColor == Colors::Colorful){
+                if(data.materialcolorfulTexture[materialIndex].id != 0){
+                    texture = data.materialcolorfulTexture[materialIndex];
+                }
+            }
+            //==================================================
+            // 素材 + 通常色
+            //==================================================
+            else{
+                if(data.materialTexture[materialIndex].id != 0){
+                    texture = data.materialTexture[materialIndex];
+                }
+            }
+        }
+        //==================================================
+        // 素材が選択されていない場合
+        //==================================================
+        else{
+            //==================================================
+            // カラフル
+            //==================================================
+            if(selectedColor == Colors::Colorful){
+                if(data.colorfulTexture.id != 0){
+                    texture = data.colorfulTexture;
+                }
+            }
+            //==================================================
+            // 色なし
+            //==================================================
+            else{
+                texture = data.defaultTexture;
+            }
         }
 
+        //==================================================
+        // 画像サイズ
+        //==================================================
         float maxWidth = 500.0f;
         float maxHeight = 300.0f;
 
@@ -1139,7 +1257,7 @@ void Room_layout::Draw(Font font){
         float imageWidth = (float)texture.width;
         float imageHeight = (float)texture.height;
 
-        // 縦横比を維持したまま縮小率を計算
+        // 縦横比を維持
         float scaleX = maxWidth / imageWidth;
         float scaleY = maxHeight / imageHeight;
 
@@ -1153,22 +1271,37 @@ void Room_layout::Draw(Font font){
         float drawX = furnitureSetting.x + (furnitureSetting.width - drawWidth) / 2.0f;
         float drawY = 150.0f;
 
-        // 通常の色
+        //==================================================
+        // 色
+        //==================================================
         Color furnitureColor = WHITE;
 
+        // 通常色の場合だけ色を適用
         if(selectedColor != Colors::Count && selectedColor != Colors::Colorful){
             furnitureColor = GetRaylibColor(selectedColor);
         }
 
+        //==================================================
         // 描画
+        //==================================================
         DrawTexturePro(
             texture,
 
             // 元画像全体
-            {0, 0, imageWidth, imageHeight},
+            {
+                0,
+                0,
+                imageWidth,
+                imageHeight
+            },
 
             // 表示先
-            {drawX, drawY, drawWidth, drawHeight},
+            {
+                drawX,
+                drawY,
+                drawWidth,
+                drawHeight
+            },
 
             {0, 0},
             0,

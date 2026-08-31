@@ -17,6 +17,8 @@ private:
 
     Rectangle furniturelist;
 
+    Rectangle setfurniture;
+
     Rectangle allfurnitureBtn;
     Texture2D all_list;
     bool all_list_open = false;
