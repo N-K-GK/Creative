@@ -65,12 +65,27 @@ Room_layout::Room_layout(){
 
         // 基本画像
         if(data.texturePath != nullptr){
-            data.defaultTexture = LoadTexture(data.texturePath);
+            Image image = LoadImage(data.texturePath);
+
+            // テクスチャ読み込み
+            data.defaultTexture = LoadTextureFromImage(image);
+
+            // 透明部分を除いた範囲を取得
+            data.defaultBounds = GetImageAlphaBounds(image);
+
+            UnloadImage(image);
         }
 
         // カラフル画像
         if(data.colorfulTexturePath != nullptr){
-            data.colorfulTexture = LoadTexture(data.colorfulTexturePath);
+            Image image = LoadImage(data.colorfulTexturePath);
+
+            data.colorfulTexture = LoadTextureFromImage(image);
+
+            // 透明部分を除いた範囲
+            data.colorfulBounds = GetImageAlphaBounds(image);
+
+            UnloadImage(image);
         }
 
         //==================================================
@@ -79,12 +94,26 @@ Room_layout::Room_layout(){
         for(int j = 0; j < (int)Materials::Count; j++){
             // 通常の素材画像
             if(data.materialTexturePath[j] != nullptr){
-                data.materialTexture[j] = LoadTexture(data.materialTexturePath[j]);
+                Image image = LoadImage(data.materialTexturePath[j]);
+
+                data.materialTexture[j] = LoadTextureFromImage(image);
+
+                // 透明部分を除いた範囲
+                data.materialBounds[j] = GetImageAlphaBounds(image);
+
+                UnloadImage(image);
             }
 
             // 素材 + カラフル画像
             if(data.materialcolorfulTexturePath[j] != nullptr){
-                data.materialcolorfulTexture[j] = LoadTexture(data.materialcolorfulTexturePath[j]);
+                Image image = LoadImage(data.materialcolorfulTexturePath[j]);
+
+                data.materialcolorfulTexture[j] = LoadTextureFromImage(image);
+
+                // 透明部分を除いた範囲
+                data.materialcolorfulBounds[j] = GetImageAlphaBounds(image);
+
+                UnloadImage(image);
             }
         }
     }
@@ -874,6 +903,54 @@ void Room_layout::Update(Font font){
             selectedMaterial = Materials::Count;
         }
     }
+
+    //========================
+    // 配置済み家具の移動
+    //========================
+    if(questNumber >= 1 && questNumber <= (int)placedFurniture.size()){
+        auto &currentFurniture = placedFurniture[questNumber - 1];
+
+        Vector2 mousePos = GetMousePosition();
+
+        // ドラッグ開始
+        if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && draggingFurnitureIndex == -1){
+            // 後から描画された家具を優先
+            for(int i = (int)currentFurniture.size() - 1; i >= 0; i--){
+
+                PlacedFurniture &furniture = currentFurniture[i];
+                FurnitureData &data = FurnitureList[(int)furniture.type];
+
+                // 家具の判定範囲
+                Rectangle furnitureRect = GetFurnitureRect(furniture, data);
+
+                // 画像なし
+                if(data.defaultTexture.id == 0){
+                    furnitureRect = {furniture.position.x - data.size.x / 2.0f,furniture.position.y - data.size.y / 2.0f,data.size.x,data.size.y};
+                }
+
+                if(CheckCollisionPointRec(mousePos, furnitureRect)){
+                    draggingFurnitureIndex = i;
+
+                    // クリックした場所と家具中心のズレを保存
+                    dragOffset = {mousePos.x - furniture.position.x,mousePos.y - furniture.position.y};
+
+                    break;
+                }
+            }
+        }
+
+        // ドラッグ中
+        if(draggingFurnitureIndex != -1 && IsMouseButtonDown(MOUSE_LEFT_BUTTON)){
+            PlacedFurniture &furniture = currentFurniture[draggingFurnitureIndex];
+
+            furniture.position = {mousePos.x - dragOffset.x,mousePos.y - dragOffset.y};
+        }
+
+        // ドラッグ終了
+        if(IsMouseButtonReleased(MOUSE_LEFT_BUTTON)){
+            draggingFurnitureIndex = -1;
+        }
+    }
 }
 
 void Room_layout::Draw(Font font){
@@ -970,7 +1047,8 @@ void Room_layout::Draw(Font font){
             // 家具画像がある場合
             //==================================================
             if(data.defaultTexture.id != 0){
-
+                Rectangle dest = GetFurnitureRect(furniture, data);
+                
                 //==================================================
                 // 使用する画像
                 //==================================================
@@ -1012,32 +1090,6 @@ void Room_layout::Draw(Font font){
                         texture = data.defaultTexture;
                     }
                 }
-
-                //==================================================
-                // 家具画像の表示サイズ
-                // data.size の中に収める
-                //==================================================
-                float imageWidth = (float)texture.width;
-                float imageHeight = (float)texture.height;
-
-                float scaleX = data.size.x / imageWidth;
-                float scaleY = data.size.y / imageHeight;
-
-                // 小さい方を使って縦横比を維持
-                float scale = std::min(scaleX, scaleY);
-
-                float drawWidth = imageWidth * scale;
-                float drawHeight = imageHeight * scale;
-
-                //==================================================
-                // 表示位置
-                //==================================================
-                Rectangle dest = {
-                    furniture.position.x - drawWidth / 2.0f,
-                    furniture.position.y - drawHeight / 2.0f,
-                    drawWidth,
-                    drawHeight
-                };
 
                 //==================================================
                 // 使用する色
@@ -1108,13 +1160,7 @@ void Room_layout::Draw(Font font){
             // 家具画像がある場合
             //==================================================
             if(data.defaultTexture.id != 0){
-                float imageScaleX = 2.0f;
-                float imageScaleY = 1.2f;
-
-                float drawWidth = data.size.x * imageScaleX;
-                float drawHeight = data.size.y * imageScaleY;
-
-                furnitureRect = {furniture.position.x - drawWidth / 2.0f,furniture.position.y - drawHeight / 2.0f,drawWidth,drawHeight};
+                furnitureRect = GetFurnitureRect(furniture, data);
             }
             //==================================================
             // 家具画像がない場合
@@ -1407,4 +1453,69 @@ void Room_layout::SetRequestData(Priority priority, Style style)
 {
     currentPriority = priority;
     currentStyle = style;
+}
+
+// 配置済み家具の判定範囲
+Rectangle Room_layout::GetFurnitureRect(const PlacedFurniture &furniture, const FurnitureData &data){
+    float imageScaleX = 2.0f;
+    float imageScaleY = 1.2f;
+
+    float drawWidth = data.size.x * imageScaleX;
+    float drawHeight = data.size.y * imageScaleY;
+
+    return {
+        furniture.position.x - drawWidth / 2.0f,
+        furniture.position.y - drawHeight / 2.0f,
+        drawWidth,
+        drawHeight
+    };
+}
+
+//==================================================
+// 画像の透明部分を除いた範囲を取得
+//==================================================
+Rectangle Room_layout::GetImageAlphaBounds(Image image){
+    Color *pixels = LoadImageColors(image);
+
+    int minX = image.width;
+    int minY = image.height;
+    int maxX = -1;
+    int maxY = -1;
+
+    // 画像を1ピクセルずつ確認
+    for(int y = 0; y < image.height; y++){
+        for(int x = 0; x < image.width; x++){
+            Color pixel = pixels[y * image.width + x];
+
+            // 完全透明ではない
+            if(pixel.a > 0){
+                if(x < minX){
+                    minX = x;
+                }
+                if(y < minY){
+                    minY = y;
+                }
+                if(x > maxX){
+                    maxX = x;
+                }
+                if(y > maxY){
+                    maxY = y;
+                }
+            }
+        }
+    }
+
+    UnloadImageColors(pixels);
+
+    // 全て透明だった場合
+    if(maxX == -1){
+        return {0, 0, 0, 0};
+    }
+
+    return {
+        (float)minX,
+        (float)minY,
+        (float)(maxX - minX + 1),
+        (float)(maxY - minY + 1)
+    };
 }

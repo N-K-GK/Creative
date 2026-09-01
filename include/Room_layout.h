@@ -157,6 +157,9 @@ private:
     Priority priority;
     Style style;
 
+    int draggingFurnitureIndex = -1;
+    Vector2 dragOffset = {0, 0};
+
 
 public:
     Room_layout();
@@ -203,6 +206,10 @@ public:
     void ResetSetting();
 
     void SetRequestData(Priority priority, Style style);
+
+    Rectangle GetFurnitureRect(const PlacedFurniture &furniture, const FurnitureData &data);
+
+    Rectangle GetImageAlphaBounds(Image image);
 };
 
 inline bool IsColorUnlocked(UnlockLevel currentLevel, UnlockLevel unlockLevel){
