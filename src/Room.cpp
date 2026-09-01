@@ -13,9 +13,6 @@ Room::Room(){
     for (int i = 0; i < 8; i++){
         room_requestBtn[i] = {100, 100 + (i * request_colinterval), 200, 50};
     }
-
-
-
 }
 
 void Room::Update(int score[8]){
@@ -79,10 +76,7 @@ void Room::Draw(Font font){
         }else{
             DrawTextEx(font,TextFormat("依頼%d★★★", i + 1), {100, 100 + (i * request_colinterval)}, 50, 2, BLACK);
         }
-        
-        
     }
-
 }
 
 int Room::Getquest_number() const{

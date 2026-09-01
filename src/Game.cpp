@@ -4,8 +4,6 @@
 
 Game::Game(){
 
-
-
     scene = START;
 
     buildingBtn = {220, 335, 170, 170};
@@ -14,7 +12,6 @@ Game::Game(){
     exitBtn  = {360, 750, 300, 60};
 
     titleBackground = LoadTexture("assets/images/title_gazou.png");
-
 
     LoadJapaneseFont();
 
@@ -41,7 +38,6 @@ Game::~Game(){
     if(jpFont.texture.id > 0){
         UnloadFont(jpFont);
     }
-
 
     if(titleBackground.id > 0){
         UnloadTexture(titleBackground);
@@ -78,14 +74,11 @@ void Game::Update(){
         break;
     
     case LIGHTING:
-
         
-
         break;
 
     case ROOM:
 
-        
         room.Update(score);
 
         if(room.Getquest_number() != -1){
@@ -99,8 +92,6 @@ void Game::Update(){
             room.ResetQuestNumber();
             scene = START;
         }
-        
-        
 
         break;
 
@@ -131,15 +122,10 @@ void Game::Update(){
             room_layout.SetRequestData(priority, style);
             scene = ROOM_QUEST;
         }
-        
-        
-        
 
         break;
 
     case RESULT:
-
-        
 
         break;
     }

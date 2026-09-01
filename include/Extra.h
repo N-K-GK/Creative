@@ -14,7 +14,6 @@ enum class Extra{
     Bar,
     Houseplant,
     Indirect_lighting,
-    
 
     Count
 };

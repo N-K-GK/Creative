@@ -101,6 +101,5 @@ inline FavoriteColor RandomNGColor(FavoriteColor favorite){
         result = static_cast<FavoriteColor>(GetRandomValue(0,(int)FavoriteColor::Count - 1));
     }while(IsSimilarColor(favorite, result));
 
-
     return result;
 }

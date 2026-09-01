@@ -1,7 +1,6 @@
 #pragma once
 #include "raylib.h"
 #include <array>
-//#include "Room.h"
 #include "Purpose.h"
 #include "Personality.h"
 #include "Age.h"
@@ -33,8 +32,8 @@ private:
         FavoriteColor favoritecolor;      //④
         Style style;              //⑥
         Priority priority;        //⑦
-        Extra extra;       //⑧
-        NGCondition ngcondition;           //⑨
+        Extra extra;              //⑧
+        NGCondition ngcondition;  //⑨
         NGRequest ng;
 
         RoomData room;
@@ -45,9 +44,6 @@ private:
     int quest_number = 0;
 
     int bottan_number = 0;
-
-    
-
 
 public:
     Room_quest();

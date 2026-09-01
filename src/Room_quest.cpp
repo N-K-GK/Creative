@@ -4,10 +4,7 @@
 
 Room_quest::Room_quest(){
 
-
     SetWindowTitle("部屋レイアウト");
-
-
 
     titleBackground = LoadTexture("assets/images/room_gazou.png");
 
@@ -17,8 +14,6 @@ Room_quest::Room_quest(){
     questlistBtn = {30, 10, 130, 180};
 
     layoutBtn = {915, 20, 140, 60};
-
-
 
     for(int i = 0; i < 8; i++){
 
@@ -38,7 +33,6 @@ Room_quest::Room_quest(){
         requests[i].extra = RandomExtra(requests[i].age,requests[i].priority);
 
         requests[i].ng.condition = RandomNGCondition();
-
 
         switch(requests[i].ng.condition){
 

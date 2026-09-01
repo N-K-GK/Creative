@@ -159,9 +159,7 @@ void Room_layout::CreateFloorPlan(){
         break;
     }
 
-    //-----------------
     // 中央配置
-    //-----------------
     floorPlan.x = (GetScreenWidth() - floorPlan.width) / 2.0f;
     floorPlan.y = 50;
 }
@@ -1471,9 +1469,7 @@ Rectangle Room_layout::GetFurnitureRect(const PlacedFurniture &furniture, const 
     };
 }
 
-//==================================================
 // 画像の透明部分を除いた範囲を取得
-//==================================================
 Rectangle Room_layout::GetImageAlphaBounds(Image image){
     Color *pixels = LoadImageColors(image);
 

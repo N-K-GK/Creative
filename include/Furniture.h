@@ -273,7 +273,6 @@ struct MaterialData
     int defaultOrder;
 };
 
-
 //========================
 // 家具一覧
 //========================
@@ -343,7 +342,7 @@ inline FurnitureData FurnitureList[] =
         "assets/images/家具/ソファー_ラタン_レインボー.png",   // Rattan
         nullptr                                             // Tile
     }, {},{}, {}, {},{},{}, {}, {},16},
-{FurnitureType::Bed, "ベッド", 120, UnlockLevel::Start, FurnitureCategory::Furniture,  {80,80}, "assets/images/家具/ベッド.png", "assets/images/家具/ベッド_レインボー.png", 
+{FurnitureType::Bed, "ベッド", 120, UnlockLevel::Start, FurnitureCategory::Furniture,  {80,100}, "assets/images/家具/ベッド.png", "assets/images/家具/ベッド_レインボー.png", 
     {
         "assets/images/家具/ベッド_木目調.png",              // Wood
         "assets/images/家具/ベッド_石目調.png",              // Stone
@@ -1686,7 +1685,6 @@ inline FurnitureData FurnitureList[] =
 
 };
 
-
 //========================
 // 色一覧
 //========================
@@ -1770,8 +1768,6 @@ inline FurnitureType RandomSmallFurniture()
 {
     return static_cast<FurnitureType>(GetRandomValue(0,(int)FurnitureType::Count - 1));
 }
-
-
 
 //========================
 // 家具価格取得
