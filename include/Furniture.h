@@ -586,41 +586,41 @@ inline FurnitureData FurnitureList[] =
         nullptr,                                  // Rattan
         nullptr                                   // Tile
     }, {},{}, {}, {},{},{}, {}, {}, 21},
-{FurnitureType::DeskChair, "デスクチェア", 120, UnlockLevel::Quest1, FurnitureCategory::Furniture,  {80,100}, nullptr, nullptr, 
+{FurnitureType::DeskChair, "デスクチェア", 120, UnlockLevel::Quest1, FurnitureCategory::Furniture,  {70,70}, "assets/images/家具/デスクチェア.png", "assets/images/家具/デスクチェア_レインボー.png", 
     {
-        nullptr,                                  // Wood
-        nullptr,                                  // Stone
-        nullptr,                                  // Glass
-        nullptr,                                  // Metal
-        nullptr,                                  // Cloth
-        nullptr,                                  // Leather
-        nullptr,                                  // Rattan
+        "assets/images/家具/デスクチェア_木目調.png",// Wood
+        "assets/images/家具/デスクチェア_石目調.png",// Stone
+        "assets/images/家具/デスクチェア_ガラス.png",// Glass
+        "assets/images/家具/デスクチェア_金属.png",  // Metal
+        "assets/images/家具/デスクチェア_布.png",    // Cloth
+        "assets/images/家具/デスクチェア.png",      // Leather
+        "assets/images/家具/デスクチェア_ラタン.png",// Rattan
         nullptr                                   // Tile
     },{
-        nullptr,                                  // Wood
-        nullptr,                                  // Stone
-        nullptr,                                  // Glass
-        nullptr,                                  // Metal
-        nullptr,                                  // Cloth
-        nullptr,                                  // Leather
-        nullptr,                                  // Rattan
+        "assets/images/家具/デスクチェア_木目調_レインボー.png",// Wood
+        "assets/images/家具/デスクチェア_石目調_レインボー.png",// Stone
+        "assets/images/家具/デスクチェア_ガラス_レインボー.png",// Glass
+        "assets/images/家具/デスクチェア_金属_レインボー.png",// Metal
+        "assets/images/家具/デスクチェア_布_レインボー.png", // Cloth
+        "assets/images/家具/デスクチェア_レインボー.png",// Leather
+        "assets/images/家具/デスクチェア_ラタン_レインボー.png",// Rattan
         nullptr                                   // Tile
     }, {},{}, {}, {},{},{}, {}, {}, 2},
-{FurnitureType::WallClock, "壁掛け時計", 50, UnlockLevel::Quest1, FurnitureCategory::Decoration,  {50,50}, nullptr, nullptr, 
+{FurnitureType::WallClock, "壁掛け時計", 50, UnlockLevel::Quest1, FurnitureCategory::Decoration,  {60,80}, "assets/images/家具/壁掛け時計.png", "assets/images/家具/壁掛け時計_レインボー.png", 
     {
-        nullptr,                                  // Wood
-        nullptr,                                  // Stone
-        nullptr,                                  // Glass
-        nullptr,                                  // Metal
+        "assets/images/家具/壁掛け時計_木目調.png",  // Wood
+        "assets/images/家具/壁掛け時計_石目調.png",  // Stone
+        "assets/images/家具/壁掛け時計.png",        // Glass
+        "assets/images/家具/壁掛け時計_金属.png",   // Metal
         nullptr,                                  // Cloth
         nullptr,                                  // Leather
         nullptr,                                  // Rattan
         nullptr                                   // Tile
     },{
-        nullptr,                                  // Wood
-        nullptr,                                  // Stone
-        nullptr,                                  // Glass
-        nullptr,                                  // Metal
+        "assets/images/家具/壁掛け時計_木目調_レインボー.png",// Wood
+        "assets/images/家具/壁掛け時計_石目調_レインボー.png",// Stone
+        "assets/images/家具/壁掛け時計_レインボー.png",// Glass
+        "assets/images/家具/壁掛け時計_金属_レインボー.png",// Metal
         nullptr,                                  // Cloth
         nullptr,                                  // Leather
         nullptr,                                  // Rattan
