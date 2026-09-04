@@ -116,6 +116,23 @@ Room_layout::Room_layout(){
                 UnloadImage(image);
             }
         }
+
+        //==================================================
+        // 色別画像
+        //==================================================
+        for(int j = 0; j < (int)Colors::Count; j++){
+            if(data.colorTexturePath[j] != nullptr){
+                Image image = LoadImage(data.colorTexturePath[j]);
+
+                // テクスチャ読み込み
+                data.colorTexture[j] = LoadTextureFromImage(image);
+
+                // 透明部分を除いた範囲
+                data.colorBounds[j] = GetImageAlphaBounds(image);
+
+                UnloadImage(image);
+            }
+        }
     }
 }
 
@@ -1051,11 +1068,29 @@ void Room_layout::Draw(Font font){
                 // 使用する画像
                 //==================================================
                 Texture2D texture = data.defaultTexture;
+                Color furnitureColor = WHITE;
+
+                //==================================================
+                // カーテン
+                //==================================================
+                if(data.type == FurnitureType::Curtain || data.type == FurnitureType::HousePlant){
+                    // 素材に関係なく色ごとの画像を使用する
+                    if(furniture.color != Colors::Count){
+                        int colorIndex = (int)furniture.color;
+
+                        if(data.colorTexture[colorIndex].id != 0){
+                            texture = data.colorTexture[colorIndex];
+                        }
+                    }
+
+                    // 画像自体に色が付いているのでTintしない
+                    furnitureColor = WHITE;
+                }
 
                 //==================================================
                 // 素材が設定されている場合
                 //==================================================
-                if(furniture.material != Materials::Count){
+                else if(furniture.material != Materials::Count){
                     int materialIndex = (int)furniture.material;
 
                     // 素材 + カラフル
@@ -1072,6 +1107,7 @@ void Room_layout::Draw(Font font){
                         }
                     }
                 }
+
                 //==================================================
                 // 素材が設定されていない場合
                 //==================================================
@@ -1092,16 +1128,25 @@ void Room_layout::Draw(Font font){
                 //==================================================
                 // 使用する色
                 //==================================================
-                Color furnitureColor = WHITE;
 
-                if(furniture.color != Colors::Count && furniture.color != Colors::Colorful){
-                    furnitureColor = GetRaylibColor(furniture.color);
+                // カーテン以外は通常通りTint
+                if(data.type != FurnitureType::Curtain && data.type != FurnitureType::HousePlant){
+                    if(furniture.color != Colors::Count && furniture.color != Colors::Colorful){
+                        furnitureColor = GetRaylibColor(furniture.color);
+                    }
                 }
 
                 //==================================================
                 // 描画
                 //==================================================
-                DrawTexturePro(texture,{0,0,(float)texture.width,(float)texture.height},dest,{0, 0},0,furnitureColor);
+                DrawTexturePro(
+                    texture,
+                    {0, 0, (float)texture.width, (float)texture.height},
+                    dest,
+                    {0, 0},
+                    0,
+                    furnitureColor
+                );
             }
             //==================================================
             // 家具画像がない場合 → 四角
@@ -1249,9 +1294,24 @@ void Room_layout::Draw(Font font){
         Texture2D texture = data.defaultTexture;
 
         //==================================================
+        // カーテン
+        //==================================================
+        if(data.type == FurnitureType::Curtain || data.type == FurnitureType::HousePlant){
+            // カーテンは素材に関係なく
+            // 色ごとの画像を使用する
+            if(selectedColor != Colors::Count){
+                int colorIndex = (int)selectedColor;
+
+                if(data.colorTexture[colorIndex].id != 0){
+                    texture = data.colorTexture[colorIndex];
+                }
+            }
+        }
+
+        //==================================================
         // 素材が選択されている場合
         //==================================================
-        if(selectedMaterial != Materials::Count){
+        else if(selectedMaterial != Materials::Count){
             int materialIndex = (int)selectedMaterial;
 
             //==================================================
@@ -1262,6 +1322,7 @@ void Room_layout::Draw(Font font){
                     texture = data.materialcolorfulTexture[materialIndex];
                 }
             }
+
             //==================================================
             // 素材 + 通常色
             //==================================================
@@ -1271,6 +1332,7 @@ void Room_layout::Draw(Font font){
                 }
             }
         }
+
         //==================================================
         // 素材が選択されていない場合
         //==================================================
@@ -1283,6 +1345,7 @@ void Room_layout::Draw(Font font){
                     texture = data.colorfulTexture;
                 }
             }
+
             //==================================================
             // 色なし
             //==================================================
@@ -1320,9 +1383,11 @@ void Room_layout::Draw(Font font){
         //==================================================
         Color furnitureColor = WHITE;
 
-        // 通常色の場合だけ色を適用
-        if(selectedColor != Colors::Count && selectedColor != Colors::Colorful){
-            furnitureColor = GetRaylibColor(selectedColor);
+        // カーテン以外は通常通りTint
+        if(data.type != FurnitureType::Curtain && data.type != FurnitureType::HousePlant){
+            if(selectedColor != Colors::Count && selectedColor != Colors::Colorful){
+                furnitureColor = GetRaylibColor(selectedColor);
+            }
         }
 
         //==================================================
