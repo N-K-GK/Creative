@@ -123,9 +123,23 @@ void Game::Update(){
             scene = ROOM_QUEST;
         }
 
+        if(room_layout.Getbottan_number() == 1){
+            room_layout.ResetBottanNumber();
+            room_quest.ResetBottanNumber();
+
+            // リザルト画面に表示する依頼番号を設定
+            result.SetQuest(quest_number);
+
+            scene = RESULT;
+        }
+
         break;
 
     case RESULT:
+
+        if(result.Update() == 1){
+            scene = ROOM;
+        }
 
         break;
     }
@@ -188,7 +202,7 @@ void Game::Draw(){
     
     case RESULT:
 
-        //result.Draw(jpFont);
+        result.Draw(jpFont);
 
         break;
     }

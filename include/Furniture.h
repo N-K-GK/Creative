@@ -389,7 +389,7 @@ inline FurnitureData FurnitureList[] =
         "assets/images/家具/本棚_ラタン_レインボー.png",     // Rattan
         "assets/images/家具/本棚_タイル_レインボー.png"      // Tile
     }, {},{}, {},{}, {}, {},{},{}, {}, {}, {},24},
-{FurnitureType::Desk, "机", 70, UnlockLevel::Start, FurnitureCategory::Furniture,  {50,60}, "assets/images/家具/机.png", "assets/images/家具/机_レインボー.png", 
+{FurnitureType::Desk, "机", 70, UnlockLevel::Start, FurnitureCategory::Furniture,  {60,60}, "assets/images/家具/机.png", "assets/images/家具/机_レインボー.png", 
     {
         "assets/images/家具/机.png",            // Wood
         "assets/images/家具/机_石目調.png",     // Stone
@@ -857,24 +857,24 @@ inline FurnitureData FurnitureList[] =
         "assets/images/家具/ダイニングテーブル_ラタン_レインボー.png",// Rattan
         nullptr                                   // Tile
     }, {},{}, {},{}, {}, {},{},{}, {}, {}, {},10},
-{FurnitureType::DiningChair, "ダイニングチェア", 100, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {80,100}, nullptr, nullptr, 
+{FurnitureType::DiningChair, "ダイニングチェア", 100, UnlockLevel::Quest2, FurnitureCategory::Furniture,  {80,100}, "assets/images/家具/ダイニングチェア.png", "assets/images/家具/ダイニングチェア_レインボー.png", 
     {
         nullptr,                                  // Wood
-        nullptr,                                  // Stone
+        "assets/images/家具/ダイニングチェア_石目調.png",// Stone
         nullptr,                                  // Glass
-        nullptr,                                  // Metal
-        nullptr,                                  // Cloth
+        "assets/images/家具/ダイニングチェア_金属.png",// Metal
+        "assets/images/家具/ダイニングチェア.png",// Cloth
         nullptr,                                  // Leather
-        nullptr,                                  // Rattan
+        "assets/images/家具/ダイニングチェア_ラタン.png",// Rattan
         nullptr                                   // Tile
     },{
         nullptr,                                  // Wood
-        nullptr,                                  // Stone
+        "assets/images/家具/ダイニングチェア_石目調_レインボー.png",// Stone
         nullptr,                                  // Glass
-        nullptr,                                  // Metal
-        nullptr,                                  // Cloth
+        "assets/images/家具/ダイニングチェア_金属_レインボー.png",// Metal
+        "assets/images/家具/ダイニングチェア_レインボー.png",// Cloth
         nullptr,                                  // Leather
-        nullptr,                                  // Rattan
+        "assets/images/家具/ダイニングチェア_ラタン_レインボー.png",// Rattan
         nullptr                                   // Tile
     }, {},{}, {},{}, {}, {},{},{}, {}, {}, {},3},
 {FurnitureType::Wallpaper, "壁紙", 200, UnlockLevel::Quest2, FurnitureCategory::Decoration,  {300,300}, nullptr, nullptr, 

@@ -3,6 +3,7 @@
 #include "Room.h"
 #include "Room_quest.h"
 #include "Room_layout.h"
+#include "Result.h"
 #include <string>
 
 class Game{
@@ -32,7 +33,7 @@ private:
     Room room;
     Room_quest room_quest;
     Room_layout room_layout;
-    //Result result;
+    Result result;
 
     // 日本語フォント読み込み用
     void LoadJapaneseFont();

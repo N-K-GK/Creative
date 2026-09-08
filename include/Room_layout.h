@@ -160,6 +160,8 @@ private:
     int draggingFurnitureIndex = -1;
     Vector2 dragOffset = {0, 0};
 
+    Rectangle resultBtn;
+
 public:
     Room_layout();
     void CreateFloorPlan();

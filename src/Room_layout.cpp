@@ -60,6 +60,8 @@ Room_layout::Room_layout(){
     placedFurniture.resize(8);
     questGold.resize(8, 0);
 
+    resultBtn = {950, 20, 120, 60};
+
     for(int i = 0; i < (int)FurnitureType::Count; i++){
         FurnitureData &data = FurnitureList[i];
 
@@ -679,6 +681,20 @@ void Room_layout::Update(Font font){
         bottan_number = -1;
     }
 
+    //========================
+    // 完了ボタン
+    //========================
+    if(CheckCollisionPointRec(GetMousePosition(), resultBtn) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+        ResetSetting();
+
+        furnitureSettingVisible = false;
+        colorSelectVisible = false;
+        materialSelectVisible = false;
+        furnitureListVisible = false;
+
+        bottan_number = 1;
+    }
+
     if(furnitureSettingVisible && !colorSelectVisible && !materialSelectVisible){
         if(CheckCollisionPointRec(GetMousePosition(), settingCancelBtn) &&IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
             furnitureSettingVisible = false;
@@ -975,6 +991,9 @@ void Room_layout::Draw(Font font){
 
     DrawRectangleRec(questdetailBtn, WHITE);
     DrawTextEx(font, "依頼内容", {50, 30}, 25, 2, BLACK);
+
+    DrawRectangleRec(resultBtn, YELLOW);
+    DrawTextEx(font, "評価を見る", {950, 30}, 25, 2, BLACK);
 
     DrawRectangleRec(furniturelist, BEIGE);
     DrawTextEx(font, "家具リスト", {30, 780}, 25, 2, BLACK);
