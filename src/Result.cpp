@@ -326,6 +326,94 @@ void Result::Draw(Font font)
     );
 
     //==================================================
+    // 解放要素
+    //==================================================
+    DrawTextEx(
+        font,
+        TextFormat("【家具】"),
+        {5, 510},
+        40,
+        2,
+        BLACK
+    );
+
+    DrawTextEx(
+        font,
+        TextFormat("【色】"),
+        {5, 700},
+        40,
+        2,
+        BLACK
+    );
+
+    if(questNumber + 1 == 1){
+        DrawTextEx(
+            font,
+            TextFormat("灰色"),
+            {15, 740},
+            40,
+            2,
+            BLACK
+        );
+    }else if(questNumber + 1 == 2){
+        DrawTextEx(
+            font,
+            TextFormat("オレンジ・水色"),
+            {15, 740},
+            40,
+            2,
+            BLACK
+        );
+    }else if(questNumber + 1 == 3){
+        DrawTextEx(
+            font,
+            TextFormat("カラフル・黄緑"),
+            {15, 740},
+            40,
+            2,
+            BLACK
+        );
+    }else if(questNumber + 1 == 4){
+        DrawTextEx(
+            font,
+            TextFormat("金・銀・銅"),
+            {15, 740},
+            40,
+            2,
+            BLACK
+        );
+    }
+
+    DrawTextEx(
+        font,
+        TextFormat("【その他】"),
+        {5, 780},
+        40,
+        2,
+        BLACK
+    );
+
+    if(questNumber + 1 == 3){
+        DrawTextEx(
+            font,
+            TextFormat("追加情報"),
+            {15, 820},
+            40,
+            2,
+            BLACK
+        );
+    }else if(questNumber + 1 == 5){
+        DrawTextEx(
+            font,
+            TextFormat("ヒアリング機能"),
+            {15, 820},
+            40,
+            2,
+            BLACK
+        );
+    }
+
+    //==================================================
     // コメント
     //==================================================
     const char* coment = "";
