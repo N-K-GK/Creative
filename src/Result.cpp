@@ -65,7 +65,7 @@ Result::Result()
     nextButton = {900, 0, 150, 50};
     // 家具詳細ボタン
     furnitureDetailsBtn = {10, 550, 100, 50};
-    furnitureDetails = {130, 450, 200, 400};
+    furnitureDetails = {130, 450, 250, 400};
     opencheck = 0;
     
 }
