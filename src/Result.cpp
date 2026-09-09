@@ -70,7 +70,6 @@ Result::Result()
     
 }
 
-
 //==================================================
 // 依頼番号設定
 //==================================================
@@ -181,7 +180,6 @@ void Result::Draw(Font font)
         );
     }
 
-
     //==================================================
     // 評価点
     //==================================================
@@ -193,7 +191,6 @@ void Result::Draw(Font font)
         2,
         BLACK
     );
-
 
     //==================================================
     // ランク
@@ -408,7 +405,6 @@ void Result::Draw(Font font)
         );
     }
 
-
     DrawTextEx(
         font,
         TextFormat("【家具】"),
@@ -424,35 +420,21 @@ void Result::Draw(Font font)
     //==================================================
     // 家具の詳細ボタンをクリック
     //==================================================
-    if(CheckCollisionPointRec(
-        GetMousePosition(),
-        furnitureDetailsBtn
-    ) &&
-    IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-    {
-        // 0 → 1
-        // 1 → 0
+    if(CheckCollisionPointRec(GetMousePosition(),furnitureDetailsBtn) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
         opencheck = 1 - opencheck;
     }
-
 
     //==================================================
     // 家具の詳細表示
     //==================================================
-    if(opencheck == 1)
-    {
+    if(opencheck == 1){
         DrawRectangleRec(furnitureDetails, (Color){187, 255, 233, 255});
-        UnlockLevel unlockLevel =
-            static_cast<UnlockLevel>(questNumber + 1);
+        UnlockLevel unlockLevel = static_cast<UnlockLevel>(questNumber + 1);
 
         int drawY = 450;
 
-        for(int i = 0;
-            i < sizeof(FurnitureList) / sizeof(FurnitureList[0]);
-            i++)
-        {
-            if(FurnitureList[i].unlock == unlockLevel)
-            {
+        for(int i = 0; i < sizeof(FurnitureList) / sizeof(FurnitureList[0]); i++){
+            if(FurnitureList[i].unlock == unlockLevel){
                 DrawTextEx(
                     font,
                     FurnitureList[i].name,
@@ -494,7 +476,6 @@ void Result::Draw(Font font)
         2,
         BLACK
     );
-
 
     //==================================================
     // 次へボタン
