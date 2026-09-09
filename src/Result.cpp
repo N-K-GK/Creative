@@ -2,6 +2,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+#include "Furniture.h"
 
 const char* S_normal_coment[] = {"素晴らしい！私の希望をとても叶えてくれました！", 
                                  "想像していた以上の部屋です！とても気に入りました！",
@@ -62,7 +63,10 @@ Result::Result()
 
     // 次へボタン
     nextButton = {900, 0, 150, 50};
-
+    // 家具詳細ボタン
+    furnitureDetailsBtn = {10, 550, 100, 50};
+    furnitureDetails = {130, 450, 200, 400};
+    opencheck = 0;
     
 }
 
@@ -330,15 +334,6 @@ void Result::Draw(Font font)
     //==================================================
     DrawTextEx(
         font,
-        TextFormat("【家具】"),
-        {5, 510},
-        40,
-        2,
-        BLACK
-    );
-
-    DrawTextEx(
-        font,
         TextFormat("【色】"),
         {5, 700},
         40,
@@ -411,6 +406,65 @@ void Result::Draw(Font font)
             2,
             BLACK
         );
+    }
+
+
+    DrawTextEx(
+        font,
+        TextFormat("【家具】"),
+        {5, 510},
+        40,
+        2,
+        BLACK
+    );
+
+    DrawRectangleRec(furnitureDetailsBtn, (Color){187, 255, 233, 255});
+    DrawTextEx(font, "家具の詳細", {10, 550}, 25, 2, BLACK);
+
+    //==================================================
+    // 家具の詳細ボタンをクリック
+    //==================================================
+    if(CheckCollisionPointRec(
+        GetMousePosition(),
+        furnitureDetailsBtn
+    ) &&
+    IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
+        // 0 → 1
+        // 1 → 0
+        opencheck = 1 - opencheck;
+    }
+
+
+    //==================================================
+    // 家具の詳細表示
+    //==================================================
+    if(opencheck == 1)
+    {
+        DrawRectangleRec(furnitureDetails, (Color){187, 255, 233, 255});
+        UnlockLevel unlockLevel =
+            static_cast<UnlockLevel>(questNumber + 1);
+
+        int drawY = 450;
+
+        for(int i = 0;
+            i < sizeof(FurnitureList) / sizeof(FurnitureList[0]);
+            i++)
+        {
+            if(FurnitureList[i].unlock == unlockLevel)
+            {
+                DrawTextEx(
+                    font,
+                    FurnitureList[i].name,
+                    {130, (float)drawY},
+                    30,
+                    2,
+                    BLACK
+                );
+
+                drawY += 30;
+            }
+        }
     }
 
     //==================================================

@@ -36,6 +36,11 @@ private:
 
     Texture2D resultBackground;
 
+    // 家具詳細ボタン
+    Rectangle furnitureDetailsBtn;
+    Rectangle furnitureDetails;
+    int opencheck = 0;
+
 public:
 
     Result();
