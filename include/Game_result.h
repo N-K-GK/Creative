@@ -37,21 +37,10 @@ private:
     int num_c;
     int num_d;
 
-    // // 依頼ごとに選択したコメント番号
-    // int questComentNum[8];
-
-    // // 依頼ごとにコメントを選択済みか
-    // bool comentSelected[8];
-
     // 次へボタン
     Rectangle nextButton;
 
     Texture2D lastresultBackground;
-
-    // // 家具詳細ボタン
-    // Rectangle furnitureDetailsBtn;
-    // Rectangle furnitureDetails;
-    // int opencheck = 0;
 
 public:
 
