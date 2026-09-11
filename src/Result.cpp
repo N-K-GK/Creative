@@ -62,10 +62,10 @@ Result::Result()
     }
 
     // 次へボタン
-    nextButton = {900, 0, 150, 50};
+    nextButton = {900, 0, 170, 50};
     // 家具詳細ボタン
     furnitureDetailsBtn = {10, 550, 100, 50};
-    furnitureDetails = {130, 450, 250, 400};
+    furnitureDetails = {130, 450, 250, 360};
     opencheck = 0;
     
 }
@@ -103,7 +103,12 @@ void Result::SetQuest(int quest)
 int Result::Update()
 {
     if(CheckCollisionPointRec(GetMousePosition(), nextButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-        return 1;
+        opencheck = 0;
+        if (questNumber + 1 == 8){
+            return 2;
+        }else{
+            return 1;
+        }
     }
 
     return 0;
@@ -332,7 +337,7 @@ void Result::Draw(Font font)
     DrawTextEx(
         font,
         TextFormat("【色】"),
-        {5, 700},
+        {5, 640},
         40,
         2,
         BLACK
@@ -342,7 +347,7 @@ void Result::Draw(Font font)
         DrawTextEx(
             font,
             TextFormat("灰色"),
-            {15, 740},
+            {15, 680},
             40,
             2,
             BLACK
@@ -351,7 +356,7 @@ void Result::Draw(Font font)
         DrawTextEx(
             font,
             TextFormat("オレンジ・水色"),
-            {15, 740},
+            {15, 680},
             40,
             2,
             BLACK
@@ -360,7 +365,7 @@ void Result::Draw(Font font)
         DrawTextEx(
             font,
             TextFormat("カラフル・黄緑"),
-            {15, 740},
+            {15, 680},
             40,
             2,
             BLACK
@@ -369,7 +374,7 @@ void Result::Draw(Font font)
         DrawTextEx(
             font,
             TextFormat("金・銀・銅"),
-            {15, 740},
+            {15, 680},
             40,
             2,
             BLACK
@@ -379,7 +384,7 @@ void Result::Draw(Font font)
     DrawTextEx(
         font,
         TextFormat("【その他】"),
-        {5, 780},
+        {5, 730},
         40,
         2,
         BLACK
@@ -389,7 +394,7 @@ void Result::Draw(Font font)
         DrawTextEx(
             font,
             TextFormat("追加情報"),
-            {15, 820},
+            {15, 770},
             40,
             2,
             BLACK
@@ -398,7 +403,7 @@ void Result::Draw(Font font)
         DrawTextEx(
             font,
             TextFormat("ヒアリング機能"),
-            {15, 820},
+            {15, 770},
             40,
             2,
             BLACK
@@ -414,13 +419,15 @@ void Result::Draw(Font font)
         BLACK
     );
 
-    DrawRectangleRec(furnitureDetailsBtn, (Color){187, 255, 233, 255});
-    DrawTextEx(font, "家具の詳細", {10, 550}, 25, 2, BLACK);
+    if(questNumber + 1 <= 5){
+        DrawRectangleRec(furnitureDetailsBtn, (Color){187, 255, 233, 255});
+        DrawTextEx(font, "家具の詳細", {10, 550}, 25, 2, BLACK);
+    }
 
     //==================================================
     // 家具の詳細ボタンをクリック
     //==================================================
-    if(CheckCollisionPointRec(GetMousePosition(),furnitureDetailsBtn) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+    if(questNumber + 1 <= 5 && CheckCollisionPointRec(GetMousePosition(),furnitureDetailsBtn) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
         opencheck = 1 - opencheck;
     }
 
@@ -480,14 +487,25 @@ void Result::Draw(Font font)
     //==================================================
     // 次へボタン
     //==================================================
-    DrawRectangleRec(nextButton, LIGHTGRAY);
-
-    DrawTextEx(
-        font,
-        "依頼リストへ",
-        {900, 0},
-        30,
-        2,
-        BLACK
-    );
+    if(questNumber + 1 == 8){
+        DrawRectangleRec(nextButton, YELLOW);
+        DrawTextEx(
+            font,
+            "最終リザルトへ",
+            {900, 0},
+            30,
+            2,
+            BLACK
+        );
+    }else{
+        DrawRectangleRec(nextButton, LIGHTGRAY);
+        DrawTextEx(
+            font,
+            "依頼リストへ",
+            {900, 0},
+            30,
+            2,
+            BLACK
+        );
+    }
 }

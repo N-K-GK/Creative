@@ -139,6 +139,16 @@ void Game::Update(){
 
         if(result.Update() == 1){
             scene = ROOM;
+        }else if(result.Update() == 2){
+            scene = GAME_RESULT;
+        }
+
+        break;
+
+    case GAME_RESULT:
+
+        if(game_result.Update() == 1){
+            scene = START;
         }
 
         break;
@@ -203,6 +213,12 @@ void Game::Draw(){
     case RESULT:
 
         result.Draw(jpFont);
+
+        break;
+
+    case GAME_RESULT:
+
+        game_result.Draw(jpFont);
 
         break;
     }
