@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include "Furniture.h"
+#include "Room_layout.h"
 
 const char* S_normal_coment[] = {"素晴らしい！私の希望をとても叶えてくれました！", 
                                  "想像していた以上の部屋です！とても気に入りました！",

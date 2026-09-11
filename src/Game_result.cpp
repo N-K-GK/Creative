@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include "Furniture.h"
+#include "Room_layout.h"
 
 Game_result::Game_result()
 {
@@ -101,7 +102,7 @@ void Game_result::Draw(Font font)
 
     DrawTextEx(
         font,
-        TextFormat("ALL CREAR"),
+        TextFormat("ALL CLEAR"),
         {650, 110},
         70,
         2,

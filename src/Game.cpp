@@ -140,6 +140,7 @@ void Game::Update(){
         if(result.Update() == 1){
             scene = ROOM;
         }else if(result.Update() == 2){
+            game_result.SetQuest(quest_number);
             scene = GAME_RESULT;
         }
 
