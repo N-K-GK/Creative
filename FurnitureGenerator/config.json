@@ -1,0 +1,21 @@
+{
+  "project_root": "../Creative_Director",
+  "asset_dir": "assets/images/家具",
+  "materials": [
+    {"key": "wood", "name": "木製", "prompt": "natural wood material, realistic wood grain"},
+    {"key": "stone", "name": "石目調", "prompt": "white stone or marble-like material, subtle natural stone veining"},
+    {"key": "glass", "name": "ガラス製", "prompt": "clear or translucent glass material, realistic reflections"},
+    {"key": "metal", "name": "金属製", "prompt": "smooth metal material with realistic subtle reflections"},
+    {"key": "cloth", "name": "布製", "prompt": "soft fabric upholstery with realistic textile texture"},
+    {"key": "leather", "name": "レザー製", "prompt": "realistic leather material with subtle leather grain"},
+    {"key": "rattan", "name": "ラタン製", "prompt": "natural woven rattan material with visible weave"},
+    {"key": "tile", "name": "タイル調", "prompt": "ceramic tile material with subtle tile surface texture"}
+  ],
+  "colors": [
+    {"key": "white", "name": "白色", "prompt": "white as the main color"},
+    {"key": "colorful", "name": "カラフル", "prompt": "colorful multicolor design with several coordinated bright colors"}
+  ],
+  "output_size": 1000,
+  "image_model": "gpt-image-1.5",
+  "image_size": "1024x1024"
+}

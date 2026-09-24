@@ -1,0 +1,166 @@
+{
+  "furniture_name": "イス",
+  "shape": "椅子（背もたれあり）",
+  "jobs": [
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "wood",
+      "material_name": "木製",
+      "color_key": "white",
+      "color_name": "白色",
+      "filename": "イス_wood_white.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: natural wood material, realistic wood grain. Color/design: white as the main color. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "wood",
+      "material_name": "木製",
+      "color_key": "colorful",
+      "color_name": "カラフル",
+      "filename": "イス_wood_colorful.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: natural wood material, realistic wood grain. Color/design: colorful multicolor design with several coordinated bright colors. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "stone",
+      "material_name": "石目調",
+      "color_key": "white",
+      "color_name": "白色",
+      "filename": "イス_stone_white.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: white stone or marble-like material, subtle natural stone veining. Color/design: white as the main color. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "stone",
+      "material_name": "石目調",
+      "color_key": "colorful",
+      "color_name": "カラフル",
+      "filename": "イス_stone_colorful.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: white stone or marble-like material, subtle natural stone veining. Color/design: colorful multicolor design with several coordinated bright colors. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "glass",
+      "material_name": "ガラス製",
+      "color_key": "white",
+      "color_name": "白色",
+      "filename": "イス_glass_white.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: clear or translucent glass material, realistic reflections. Color/design: white as the main color. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "glass",
+      "material_name": "ガラス製",
+      "color_key": "colorful",
+      "color_name": "カラフル",
+      "filename": "イス_glass_colorful.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: clear or translucent glass material, realistic reflections. Color/design: colorful multicolor design with several coordinated bright colors. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "metal",
+      "material_name": "金属製",
+      "color_key": "white",
+      "color_name": "白色",
+      "filename": "イス_metal_white.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: smooth metal material with realistic subtle reflections. Color/design: white as the main color. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "metal",
+      "material_name": "金属製",
+      "color_key": "colorful",
+      "color_name": "カラフル",
+      "filename": "イス_metal_colorful.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: smooth metal material with realistic subtle reflections. Color/design: colorful multicolor design with several coordinated bright colors. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "cloth",
+      "material_name": "布製",
+      "color_key": "white",
+      "color_name": "白色",
+      "filename": "イス_cloth_white.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: soft fabric upholstery with realistic textile texture. Color/design: white as the main color. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "cloth",
+      "material_name": "布製",
+      "color_key": "colorful",
+      "color_name": "カラフル",
+      "filename": "イス_cloth_colorful.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: soft fabric upholstery with realistic textile texture. Color/design: colorful multicolor design with several coordinated bright colors. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "leather",
+      "material_name": "レザー製",
+      "color_key": "white",
+      "color_name": "白色",
+      "filename": "イス_leather_white.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: realistic leather material with subtle leather grain. Color/design: white as the main color. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "leather",
+      "material_name": "レザー製",
+      "color_key": "colorful",
+      "color_name": "カラフル",
+      "filename": "イス_leather_colorful.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: realistic leather material with subtle leather grain. Color/design: colorful multicolor design with several coordinated bright colors. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "rattan",
+      "material_name": "ラタン製",
+      "color_key": "white",
+      "color_name": "白色",
+      "filename": "イス_rattan_white.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: natural woven rattan material with visible weave. Color/design: white as the main color. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "rattan",
+      "material_name": "ラタン製",
+      "color_key": "colorful",
+      "color_name": "カラフル",
+      "filename": "イス_rattan_colorful.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: natural woven rattan material with visible weave. Color/design: colorful multicolor design with several coordinated bright colors. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "tile",
+      "material_name": "タイル調",
+      "color_key": "white",
+      "color_name": "白色",
+      "filename": "イス_tile_white.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: ceramic tile material with subtle tile surface texture. Color/design: white as the main color. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    },
+    {
+      "furniture_name": "イス",
+      "shape": "椅子（背もたれあり）",
+      "material_key": "tile",
+      "material_name": "タイル調",
+      "color_key": "colorful",
+      "color_name": "カラフル",
+      "filename": "イス_tile_colorful.png",
+      "prompt": "A single イス, 椅子（背もたれあり）. This is a game asset for a furniture placement game. Material: ceramic tile material with subtle tile surface texture. Color/design: colorful multicolor design with several coordinated bright colors. Keep the exact same furniture category and basic shape; do not add extra objects. Three-quarter front view, centered, fully visible, realistic product render, clean silhouette, no person, no room, no floor, no wall, no text, transparent background, suitable as a 2D game asset."
+    }
+  ]
+}
